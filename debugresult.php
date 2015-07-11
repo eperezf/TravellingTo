@@ -89,15 +89,14 @@
     $voltageListTo = $voltageOneTo . " and " . $voltageTwoTo . "V";
   };
 
-  //Comparación de voltajes:
-  if ($voltageTwoFrom == 0 && $voltageTwoTo == 0){
-    if ($voltageOneFrom == $voltageOneTo){
-      $voltageResponse = "Both countries use the same voltage. You are good to go. But still, check if you need a plug adapter.";
-    }
-    else {
-      $voltageResponse = "Be careful! In " . $nameTo . " the voltage is " . $voltageOneTo . "V meanwhile in " . $nameFrom . " you use " . $voltageOneFrom . "V. Check if your electronic devices can switch from one voltage to another. If not, buy a voltage transformer.";
+
+  //Comparación de lado de manejo:
+  if ($roadFrom == $roadTo){
+    $roadResponse = "In both " . $nameFrom . " and " . $nameTo . " people drive on the " . $roadFrom . ". Be sure to still check for special driving licenses if you are planning to drive. We're working on getting that info for you.";
+  }
+    else{
+      $roadResponse = "Be careful! In " . $nameFrom . " people drive on the " . $roadFrom . " meanwhile in " . $nameTo . " people drive on the " . $roadTo . ". If you are planning to drive, be sure to learn different road rules that may be present in " . $nameTo . " and check for special driving licenses that you may need. We're working on getting that info for you.";
     };
-  };
 
 ?>
 
@@ -123,17 +122,16 @@
   <p>
     Origin country voltage: <?php echo $voltageListFrom ?></br>
     Destination country voltage: <?php echo $voltageListTo ?></br>
-    Voltage comparison between <?php echo $countries_name ?>: <?php echo $voltageResponse ?>
-  </p>
+    Voltage comparison between <?php echo $countries_name ?>: COMPARISON SYSTEM IN PROGRESS
   <p>
-    Origin country plug type(s): ORIGIN PLUG TYPE</br>
-    Destination country plug type(s): DESTIATION PLUG TYPE</br>
+    Origin country plug type(s): ORIGIN PLUG TYPE(s)</br>
+    Destination country plug type(s): DESTIATION PLUG TYPE(s)</br>
     Plug type comparison between <?php echo $countries_name ?>: COMPARISON SYSTEM IN PROGRESS
   </p>
   <p>
     Origin country diriving side: <?php echo $roadFrom ?></br>
     Destination country driving side: <?php echo $roadTo ?></br>
-    Road side driving comparison between <?php echo $countries_name ?>:
+    Road side driving comparison between <?php echo $countries_name ?>: <?php echo $roadResponse ?>
   </p>
 
 
