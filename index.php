@@ -536,6 +536,11 @@
 				</div>
 			</form>
 		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+  		<div class="container">
+    		<a href="about.php"><button type="button" class="btn btn-default navbar-btn">About Us</button></a>
+  		</div>
+		</nav>
 	</div>
 </body>
 </html>
