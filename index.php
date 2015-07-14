@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<form action="debugresult.php" method="get">
+			<form action="result.php" method="get">
 				<div class="col-md-12 col-lg-6">
 					<h4><p class="text-center">Select your country</p></h4>
 					<select class="form-control" id="cfrom" name="cfrom">
@@ -48,8 +48,8 @@
 						<option value="BJ">Benin</option>
 						<option value="BM">Bermuda</option>
 						<option value="BT">Bhutan</option>
-						<option value="BO">Bolivia, Plurinational State of</option>
-						<option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+						<option value="BO">Bolivia</option>
+						<option value="BQ">Bonaire</option>
 						<option value="BA">Bosnia and Herzegovina</option>
 						<option value="BW">Botswana</option>
 						<option value="BV">Bouvet Island</option>
