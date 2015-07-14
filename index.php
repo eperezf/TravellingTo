@@ -539,6 +539,7 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom">
   		<div class="container">
     		<a href="about.php"><button type="button" class="btn btn-default navbar-btn">About Us</button></a>
+    		<a href="contact.php"><button type="button" class="btn btn-default navbar-btn">Contact</button></a>
   		</div>
 		</nav>
 	</div>
