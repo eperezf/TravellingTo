@@ -93,6 +93,14 @@
       $roadResponse = "Be careful! In " . $nameFrom . " people drive on the " . $roadFrom . " meanwhile in " . $nameTo . " people drive on the " . $roadTo . ". If you are planning to drive, be sure to learn different road rules that may be present in " . $nameTo . " and check for special driving licenses that you may need. We're working on getting that info for you.";
     };
 
+    //Comparación de idioma:
+    if ($mainLanguageFrom == $mainLanguageTo){
+      $languageResponse = "In both " . $nameFrom . " and " . $nameTo . " people speak " . $mainLanguageTo . ". You are good to go!";
+    }
+    else {
+      $languageResponse = "Be careful! In " . $nameFrom . " people speak " . $mainLanguageFrom . " meanwhile in " . $nameTo . " people speak " . $mainLanguageTo . " Be sure to learn some basic phrases such as:</br> <p>Hello: " . $helloPhraseTo . "</p><p>Goodbye: " . $goodbyePhraseTo . "</p>";
+    };
+
 ?>
 
 <html>
@@ -108,6 +116,11 @@
   <p>
     Origin country phone code: <?php echo $phoneCodeFrom ?></br>
     Destination country phone code: <?php echo $phoneCodeTo ?>
+  </p>
+  <p>
+    Origin country language: <?php echo $mainLanguageFrom ?></br>
+    Destination country laguage: <?php echo $mainLanguageTo ?></br>
+    Language comparison between <?php echo $countries_name ?>: <?php echo $languageResponse; ?>
   </p>
   <p>
     Origin country currency: <?php echo $currencyResponseFrom ?></br>
