@@ -128,7 +128,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Information of <?php echo $nameFrom ?></h3>
           </div>
           <div class="panel-body">
-            <img src="http://placehold.it/320x168" class="img-responsive"></br>
+            <img src="img/<?php echo $codeFrom ?>.png" class="img-responsive"></br>
             <ul class="list-group">
               <li class="list-group-item">Country code: <?php echo $codeFrom ?></li>
               <li class="list-group-item">Country phone number: <?php echo $phoneCodeFrom ?></li>
@@ -148,7 +148,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Information of <?php echo $nameTo ?></h3>
           </div>
           <div class="panel-body">
-            <img src="http://placehold.it/320x168" class="img-responsive"></br>
+            <img src="img/<?php echo $codeTo ?>.png" class="img-responsive"></br>
             <ul class="list-group">
               <li class="list-group-item">Country code: <?php echo $codeTo ?></li>
               <li class="list-group-item">Country phone number: <?php echo $phoneCodeTo ?></li>
