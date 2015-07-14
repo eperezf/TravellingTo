@@ -27,11 +27,6 @@
  		$roadFrom .= $row['RoadSide'];
     $phoneCodeFrom .= $row['PhoneCode'];
     $mainLanguageFrom .= $row['MainLanguage'];
-    $helloPhraseFrom .= $row['HelloPhrase'];
-    $goodbyePhraseFrom .= $row['GoodbyePhrase'];
-    $thanksPhraseFrom .= $row['ThanksPhrase'];
-    $dontSpeakPhraseFrom .= $row['DontSpeakPhrase'];
-    $bathroomPhraseFrom .= $row['BathroomPhrase'];
  	}
  	
   //Toma los datos del país de destino:
