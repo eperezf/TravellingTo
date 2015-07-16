@@ -132,7 +132,7 @@
             <ul class="list-group">
               <li class="list-group-item">Country code: <?php echo $codeFrom ?></li>
               <li class="list-group-item">Country phone number: <?php echo $phoneCodeFrom ?></li>
-              <li class="list-group-item">Country stat3:</li>
+              <li class="list-group-item">Country currency: <?php echo $currencyResponseFrom ?></li>
               <li class="list-group-item">Country stat4:</li>
               <li class="list-group-item">Country stat5:</li>
             </ul>
@@ -152,7 +152,7 @@
             <ul class="list-group">
               <li class="list-group-item">Country code: <?php echo $codeTo ?></li>
               <li class="list-group-item">Country phone number: <?php echo $phoneCodeTo ?></li>
-              <li class="list-group-item">Country stat3:</li>
+              <li class="list-group-item">Country currency: <?php echo $currencyResponseTo ?></li>
               <li class="list-group-item">Country stat4:</li>
               <li class="list-group-item">Country stat5:</li>
             </ul>
@@ -168,7 +168,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Language comparison between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            This is the language comparison between <?php echo $countries_name ?>. If both are the same, this will be OK. If not, it shows common phrases to learn. A translator should be useful here.
+            <?php echo $languageResponse ?>
           </div>
         </div>
       </div>
@@ -181,9 +181,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Currency comparison between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            In COUNTRYFROM the official currency is the MONEYFROM (MONEYCODEFROM) meanwhile in COUNTRYTO te official currency is MONEYTO (MONEYCODETO) is used. </br>
-            If needed, there will be a currency comparison system. </br>
-            If not, it will be ok to go!
+            <?php echo $currencyResultResponse ?>
           </div>
         </div>
       </div>
@@ -222,7 +220,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Driving side comparsion between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            If people drive on the same side, it's great! If not, advice! Still, check for special driving licenses you may need. Get that info too, motherfucker!
+            <?php echo $roadResponse ?>
           </div>
         </div>
       </div>
