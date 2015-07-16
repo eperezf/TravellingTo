@@ -168,7 +168,7 @@
             <h3 class="panel-title"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Language comparison between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            This is the language comparison <?php echo $countries_name ?>. If both are the same, this will be OK. If not, it shows common phrases to learn. A translator should be useful here.
+            This is the language comparison between <?php echo $countries_name ?>. If both are the same, this will be OK. If not, it shows common phrases to learn. A translator should be useful here.
           </div>
         </div>
       </div>
