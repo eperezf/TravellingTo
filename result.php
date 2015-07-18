@@ -11,6 +11,36 @@
   $ResultFrom=mysql_query($QueryFrom);
   $ResultTo=mysql_query($QueryTo);
 
+  //Declaración de variables:
+  $completedFrom ="";
+  $codeFrom = "";
+  $nameFrom ="";
+  $exRateFrom ="";
+  $plugTypeOneFrom="";
+  $plugTypeTwoFrom="";
+  $plugTypeThreeFrom="";
+  $plugTypeFourFrom="";
+  $currencyFrom="";
+  $voltageOneFrom="";
+  $voltageTwoFrom="";
+  $roadFrom="";
+  $phoneCodeFrom="";
+  $mainLanguageFrom="";
+  $completedTo ="";
+  $codeTo = "";
+  $nameTo ="";
+  $exRateTo ="";
+  $plugTypeOneTo="";
+  $plugTypeTwoTo="";
+  $plugTypeThreeTo="";
+  $plugTypeFourTo="";
+  $currencyTo="";
+  $voltageOneTo="";
+  $voltageTwoTo="";
+  $roadTo="";
+  $phoneCodeTo="";
+  $mainLanguageTo="";
+
   //Toma los datos del país de origen:
   while($row = mysql_fetch_array($ResultFrom)) {
     $completedFrom .= $row['completed'];
