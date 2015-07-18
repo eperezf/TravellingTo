@@ -11,6 +11,36 @@
   $ResultFrom=mysql_query($QueryFrom);
   $ResultTo=mysql_query($QueryTo);
 
+  //Declaración de variables:
+  $completedFrom ="";
+  $codeFrom = "";
+  $nameFrom ="";
+  $exRateFrom ="";
+  $plugTypeOneFrom="";
+  $plugTypeTwoFrom="";
+  $plugTypeThreeFrom="";
+  $plugTypeFourFrom="";
+  $currencyFrom="";
+  $voltageOneFrom="";
+  $voltageTwoFrom="";
+  $roadFrom="";
+  $phoneCodeFrom="";
+  $mainLanguageFrom="";
+  $completedTo ="";
+  $codeTo = "";
+  $nameTo ="";
+  $exRateTo ="";
+  $plugTypeOneTo="";
+  $plugTypeTwoTo="";
+  $plugTypeThreeTo="";
+  $plugTypeFourTo="";
+  $currencyTo="";
+  $voltageOneTo="";
+  $voltageTwoTo="";
+  $roadTo="";
+  $phoneCodeTo="";
+  $mainLanguageTo="";
+
   //Toma los datos del país de origen:
   while($row = mysql_fetch_array($ResultFrom)) {
     $completedFrom .= $row['completed'];
@@ -101,6 +131,27 @@
       $languageResponse = "Be careful! In " . $nameFrom . " people speak " . $mainLanguageFrom . " meanwhile in " . $nameTo . " people speak " . $mainLanguageTo . " Be sure to learn some basic phrases such as:</br>Hello: " . $helloPhraseTo . "</br>Goodbye: " . $goodbyePhraseTo . "</br>";
     };
 
+    //Comparación de voltajes:
+    if ($voltageTwoFrom == 0 && $voltageTwoTo == 0){
+      if ($voltageOneFrom == $voltageOneTo){
+        $voltageResponse ="In both " . $countries_name . " The voltage is the same. Still, check for different plugs your electronic devices may need.";
+      }
+      else {
+        $voltageResponse ="Be careful! In " . $nameFrom . " the voltage is " . $voltageOneFrom . "V meanwhile in " . $nameTo . " the voltage is " . $voltageOneTo . "V. Check if your electronic devices are capable of switching between different voltages and their plug type. If not, you may need a voltage transformer.";
+      }
+    }
+    else if ($voltageTwoFrom != 0){
+      $voltageResponse = "Secondary voltage in From country is not 0 but the other is.";
+    }
+    else if ($voltageTwoTo != 0){
+      $voltageResponse = "Secondary voltage in To country is not 0 but the other is.";
+    }
+    else {
+      $voltageResponse = "In both countries secondary voltage is not 0";
+    };
+
+    
+
 ?>
 
 <html>
@@ -130,7 +181,7 @@
   <p>
     Origin country voltage: <?php echo $voltageListFrom ?></br>
     Destination country voltage: <?php echo $voltageListTo ?></br>
-    Voltage comparison between <?php echo $countries_name ?>: COMPARISON SYSTEM IN PROGRESS
+    Voltage comparison between <?php echo $countries_name ?>: <?php echo $voltageResponse ?>
   <p>
     Origin country plug type(s): ORIGIN PLUG TYPE(s)</br>
     Destination country plug type(s): DESTIATION PLUG TYPE(s)</br>
