@@ -194,7 +194,8 @@
             <h3 class="panel-title">Voltage comparison between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            IF both the voltage in COUNTRYFROM and COUNTRYTO are the same, there will be an OK sign an we'll be good to go. If not, there will be a breakdown of which voltages each country uses and if they are compatible. Also a warning for different plugs (WIP).
+            <p>Voltage(s) used in <?php echo $nameFrom . ": " . $voltageListFrom ?></p>
+            <p>Voltage(s) used in <?php echo $nameTo . ": " . $voltageListTo ?></p>
           </div>
         </div>
       </div>
@@ -207,7 +208,7 @@
             <h3 class="panel-title">Plug comparison between <?php echo $countries_name ?></h3>
           </div>
           <div class="panel-body">
-            This is totally going into the WIP part. I don't know how the fuck to do that shit. 
+            WIP
           </div>
         </div>
       </div>
