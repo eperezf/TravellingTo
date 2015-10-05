@@ -7,8 +7,6 @@
   $relationQuery = "SELECT * FROM `Relation` WHERE `Points` >= 1 ORDER BY `Points` DESC LIMIT 5";
   $relationResult = mysqli_query($conn, $relationQuery);
   //Relation Query + declaration BEGIN
-
-
 ?>
 
 <html>
