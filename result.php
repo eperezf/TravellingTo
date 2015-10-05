@@ -1,282 +1,259 @@
 <?php 
-  //Conecta al servidor:
-  mysql_connect("localhost", "root", "root") or die (mysql_error ());
-  //Conecta a la base de datos:
-  mysql_select_db("TravellingTo") or die(mysql_error());
-  //Crea el query:
-  $QueryFrom="SELECT * FROM `country_data` WHERE `iso` LIKE '" .$_GET['cfrom']. "'";
 
-  $QueryTo="SELECT * FROM `country_data` WHERE `iso` LIKE '" .$_GET['cto']. "'";
-  //Realiza el Query:
-  $ResultFrom=mysql_query($QueryFrom);
-  $ResultTo=mysql_query($QueryTo);
+session_start(); 
 
-  //Declaración de variables:
-  $completedFrom ="";
-  $codeFrom = "";
-  $nameFrom ="";
-  $exRateFrom ="";
-  $plugTypeOneFrom="";
-  $plugTypeTwoFrom="";
-  $plugTypeThreeFrom="";
-  $plugTypeFourFrom="";
-  $currencyFrom="";
-  $voltageOneFrom="";
-  $voltageTwoFrom="";
-  $roadFrom="";
-  $phoneCodeFrom="";
-  $mainLanguageFrom="";
-  $completedTo ="";
-  $codeTo = "";
-  $nameTo ="";
-  $exRateTo ="";
-  $plugTypeOneTo="";
-  $plugTypeTwoTo="";
-  $plugTypeThreeTo="";
-  $plugTypeFourTo="";
-  $currencyTo="";
-  $voltageOneTo="";
-  $voltageTwoTo="";
-  $roadTo="";
-  $phoneCodeTo="";
-  $mainLanguageTo="";
-
-  //Toma los datos del país de origen:
-  while($row = mysql_fetch_array($ResultFrom)) {
-    $completedFrom .= $row['completed'];
- 		$codeFrom .= $row['iso'];
- 		$nameFrom .= $row['name'];
- 		$exRateFrom .=$row['currencyCode'];
- 		$plugTypeOneFrom .= $row['PlugTypeOne'];
- 		$plugTypeTwoFrom .= $row['PlugTypeTwo'];
-    $plugTypeThreeFrom .= $row['PlugTypeThree'];
-    $plugTypeFourFrom .= $row['PlugTypeFour'];
- 		$currencyFrom .= $row['Currency'];
- 		$voltageOneFrom .= $row['VoltageOne'];
-    $voltageTwoFrom .= $row['VoltageTwo'];
- 		$roadFrom .= $row['RoadSide'];
-    $phoneCodeFrom .= $row['PhoneCode'];
-    $mainLanguageFrom .= $row['MainLanguage'];
- 	}
- 	
-  //Toma los datos del país de destino:
- 	while($row = mysql_fetch_array($ResultTo)) {
- 		$completedTo .= $row['completed'];
-    $codeTo .= $row['iso'];
-    $nameTo .= $row['name'];
-    $exRateTo .=$row['currencyCode'];
-    $plugTypeOneTo .= $row['PlugTypeOne'];
-    $plugTypeTwoTo .= $row['PlugTypeTwo'];
-    $plugTypeThreeTo .= $row['PlugTypeThree'];
-    $plugTypeFourTo .= $row['PlugTypeFour'];
-    $currencyTo .= $row['Currency'];
-    $voltageOneTo .= $row['VoltageOne'];
-    $voltageTwoTo .= $row['VoltageTwo'];
-    $roadTo .= $row['RoadSide'];
-    $phoneCodeTo .= $row['PhoneCode'];
-    $mainLanguageTo .= $row['MainLanguage'];
-    $helloPhraseTo .= $row['HelloPhrase'];
-    $goodbyePhraseTo .= $row['GoodbyePhrase'];
-    $thanksPhraseTo .= $row['ThanksPhrase'];
-    $dontSpeakPhraseTo .= $row['DontSpeakPhrase'];
-    $bathroomPhraseTo .= $row['BathroomPhrase'];
- 	}
-
-  //API de conversión monetaria:
- 	$moneyGet = file_get_contents('https://openexchangerates.org/api/latest.json?app_id=966590d55d6b4e70aac796e18d3182a3');
-  $moneyResult = json_decode($moneyGet, true);
-  $From_USD = $moneyResult['rates'][$exRateFrom];
-  $To_USD = $moneyResult['rates'][$exRateTo];
-  $ExRateFinal = $From_USD / $To_USD;
-
-  //Creación de responses para comparaciones:
-  //Nombramiento de los dos países (Canada and Chile):
-  $countries_name = $nameFrom . " and " . $nameTo;
-
-  //Nombramiento de moneda + código ISO:
-  $currencyResponseFrom = $currencyFrom . " (" . $exRateFrom . ")";
-  $currencyResponseTo = $currencyTo . " (" . $exRateTo . ")";
-
-  //Nombramiento de cambio de moneda:
-  $currencyResultResponse = $currencyFrom . " to " . $currencyTo . ": 1 " . $currencyTo . " equals " . $ExRateFinal . " " . $currencyFrom;
-
-  //Nombramiento de voltajes:
-  if ($voltageTwoFrom == 0) {
-    $voltageListFrom = $voltageOneFrom . "V";
-  }
-  else {
-    $voltageListFrom = $voltageOneFrom . " and " . $voltageTwoFrom . "V";
-  }
-  if ($voltageTwoTo == 0) {
-    $voltageListTo = $voltageOneTo . "V";
-  }
-  else {
-    $voltageListTo = $voltageOneTo . " and " . $voltageTwoTo . "V";
+	//Check if country codes are empty or equal BEGIN
+  if (empty($_GET)){
+    header("Location: /");
+    die();
   };
-
-
-  //Comparación de lado de manejo:
-  if ($roadFrom == $roadTo){
-    $roadResponse = "In both " . $nameFrom . " and " . $nameTo . " people drive on the " . $roadFrom . ". Be sure to still check for special driving licenses if you are planning to drive. We're working on getting that info for you.";
+  if ($_GET['cfrom'] == $_GET['cto'] || $_GET['cfrom'] == "" || $_GET['cto'] == ""){
+    header("Location: /");
+    die();
   }
-    else{
-      $roadResponse = "Be careful! In " . $nameFrom . " people drive on the " . $roadFrom . " meanwhile in " . $nameTo . " people drive on the " . $roadTo . ". If you are planning to drive, be sure to learn different road rules that may be present in " . $nameTo . " and check for special driving licenses that you may need. We're working on getting that info for you.";
-    };
+	//Check if country codes are empty or equal END
 
-    //Comparación de idioma:
-    if ($mainLanguageFrom == $mainLanguageTo){
-      $languageResponse = "In both " . $nameFrom . " and " . $nameTo . " people speak " . $mainLanguageTo . ". You are good to go!";
-    }
-    else {
-      $languageResponse = "Be careful! In " . $nameFrom . " people speak " . $mainLanguageFrom . " meanwhile in " . $nameTo . " people speak " . $mainLanguageTo . " Be sure to learn some basic phrases such as:</br>Hello: " . $helloPhraseTo . "</br>Goodbye: " . $goodbyePhraseTo . "</br>";
-    };
+  define('FromFile', TRUE);
 
-    //Comparación de voltajes:
-    if ($voltageTwoFrom == 0 && $voltageTwoTo == 0){
-      if ($voltageOneFrom == $voltageOneTo){
-        $voltageResponse ="In both " . $countries_name . " The voltage is the same. Still, check for different plugs your electronic devices may need.";
-      }
-      else {
-        $voltageResponse ="Be careful! In " . $nameFrom . " the voltage is " . $voltageOneFrom . "V meanwhile in " . $nameTo . " the voltage is " . $voltageOneTo . "V. Check if your electronic devices are capable of switching between different voltages and their plug type. If not, you may need a voltage transformer.";
-      }
-    }
-    else if ($voltageTwoFrom != 0){
-      $voltageResponse = "Secondary voltage in From country is not 0 but the other is.";
-    }
-    else if ($voltageTwoTo != 0){
-      $voltageResponse = "Secondary voltage in To country is not 0 but the other is.";
-    }
-    else {
-      $voltageResponse = "In both countries secondary voltage is not 0";
-    };
+  include 'config.php';
 
-?>
-<!DOCTYPE html>
+  //Relation Query + declaration BEGIN
+  $Points = 0;
+  $relationQuery = "SELECT * FROM `Relation` WHERE `Origin` ='" . $_GET['cfrom'] ."' AND `Destination` ='" . $_GET['cto'] . "'";
+  $relationResult = mysqli_query($conn, $relationQuery);
+  while ($row = mysqli_fetch_array($relationResult)) {
+    $id_Relation = $row["idRelation"];
+    $From = $row["Origin"];
+    $To = $row["Destination"];
+    $Points = $row["Points"];
+  }
+  //Relation Query + declaration BEGIN
+
+  //Relation point assignation BEGIN
+  $Points = $Points + 1;
+  $PointsQuery = "UPDATE `Relation` SET `Points` =" . $Points . " WHERE `idRelation` =" . $id_Relation;
+  if (mysqli_query($conn, $PointsQuery)){
+  }
+  else {
+  	echo "ERROR";
+  };
+  //Relation point assignation END
+
+  //Country From Query + declaration BEGIN
+  $countryFromQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $_GET['cfrom'] . "'";
+  $countryFromResult = mysqli_query($conn, $countryFromQuery);
+  while($row = mysqli_fetch_array($countryFromResult)) {
+    $id_From                =   $row["idCountry"]; //DEBUG ONLY DO NOT USE
+    $ISO_From               =   $row["ISO"];
+    $Name_From              =   $row["Name"];
+    $Capital_From           =   $row["Capital"];
+    $Phone_Code_From        =   $row["Phone_Code"];
+    $Driving_Side_From      =   $row["Driving_Side"];
+    $Voltage_Primary_From   =   $row["Voltage_Primary"];
+    $Voltage_Secondary_From =   $row["Voltage_Secondary"];
+    $Plug_List_From         =   $row["Plug_List"];
+  };
+  //Country From Query + declaration END
+  
+  //Country To Query + declaration BEGIN
+  $countryToQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $_GET['cto'] . "'";
+  $countryToResult = mysqli_query($conn, $countryToQuery);
+  while($row = mysqli_fetch_array($countryToResult)) {
+    $id_To                =   $row["idCountry"]; //DEBUG ONLY DO NOT USE
+    $ISO_To               =   $row["ISO"];
+    $Name_To              =   $row["Name"];
+    $Capital_To           =   $row["Capital"];
+    $Phone_Code_To        =   $row["Phone_Code"];
+    $Driving_Side_To      =   $row["Driving_Side"];
+    $Voltage_Primary_To   =   $row["Voltage_Primary"];
+    $Voltage_Secondary_To =   $row["Voltage_Secondary"];
+    $Plug_List_To         =   $row["Plug_List"];
+  };
+  //Country To Query + declaration END
+
+  include 'dataget/currency.php';
+  include 'dataget/currency_convert.php';
+  include 'dataget/voltage.php';
+  include 'dataget/driving.php';
+  include 'dataget/plugs.php';
+
+  ?>
+
+  <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="page-header text-center">
-          <h1><small>Travelling from</small> <?php echo $nameFrom ?> <small>to</small> <?php echo $nameTo ?></h1>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		    <span class="sr-only">Toggle navigation</span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="#">TravellingTo</a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav">
+		    <li><a href="index.php">Index</a></li>
+		    <li><a href="about.php">About Us</a></li>
+		    <li><a href="disclaimer.php">Disclaimer</a></li>
+		    <li><a href="/contribute">Contribute</a></li>
+				<li><a href="contact.php">Contact Us</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1><p class="text-center"><small>Travelling from</small> <?php echo $Name_From ?> <small>to</small> <?php echo $Name_To ?></p></h1>
+		</div>
+	</div>
+	<!--COUNTRY FROM GENERIC INFO-->
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-home"></i> Information of <strong><?php echo $Name_From ?></strong></h3>
+        </div>
+        <div class="panel-body">
+          <img src="http://placehold.it/300x200" class="img-responsive center-block"></br>
+          <ul class="list-group">
+          	<li class="list-group-item">Country code: <?php echo $ISO_From ?></li>
+            <li class="list-group-item">Capital: <?php echo $Capital_From ?></li>
+            <li class="list-group-item">Phone code: +<?php echo $Phone_Code_From ?></li>
+            <li class="list-group-item">Currency: <?php echo $Currency_Name_From ?></li>
+            <li class="list-group-item">Main language: Unavailable</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="row">
-      <!--COUNTRY FROM GENERIC INFO-->
-      <div class="col-md-6 col-lg-6 col-sm-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Information of <?php echo $nameFrom ?></h3>
-          </div>
-          <div class="panel-body">
-            <img src="img/<?php echo $codeFrom ?>.png" class="img-responsive"></br>
-            <ul class="list-group">
-              <li class="list-group-item">Country code: <?php echo $codeFrom ?></li>
-              <li class="list-group-item">Country phone number: <?php echo $phoneCodeFrom ?></li>
-              <li class="list-group-item">Country currency: <?php echo $currencyResponseFrom ?></li>
-              <li class="list-group-item">Country stat4:</li>
-              <li class="list-group-item">Country stat5:</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY FROM GENERIC INFO END-->
+    <!--COUNTRY FROM GENERIC INFO END-->
 
-      <!--COUNTRY TO GENERIC INFO-->
-      <div class="col-md-6 col-lg-6 col-sm-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span> Information of <?php echo $nameTo ?></h3>
-          </div>
-          <div class="panel-body">
-            <img src="img/<?php echo $codeTo ?>.png" class="img-responsive"></br>
-            <ul class="list-group">
-              <li class="list-group-item">Country code: <?php echo $codeTo ?></li>
-              <li class="list-group-item">Country phone number: <?php echo $phoneCodeTo ?></li>
-              <li class="list-group-item">Country currency: <?php echo $currencyResponseTo ?></li>
-              <li class="list-group-item">Country stat4:</li>
-              <li class="list-group-item">Country stat5:</li>
-            </ul>
-          </div>
+    <!--COUNTRY TO GENERIC INFO-->
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-plane"></i> Information of <strong><?php echo $Name_To ?></strong></h3>
+        </div>
+        <div class="panel-body">
+         <img src="http://placehold.it/300x200" class="img-responsive center-block"></br>
+          <ul class="list-group">
+          	<li class="list-group-item">Country code: <?php echo $ISO_To ?></li>
+            <li class="list-group-item">Capital: <?php echo $Capital_To ?></li>
+            <li class="list-group-item">Phone code: +<?php echo $Phone_Code_To ?></li>
+            <li class="list-group-item">Currency: <?php echo $Currency_Name_To ?></li>
+            <li class="list-group-item">Main language: Unavailable</li>
+          </ul>
         </div>
       </div>
-      <!--COUNTRY TO GENERIC INFO END-->
-
-      <!--COUNTRY LANGUAGE COMPARISON-->
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Language comparison between <?php echo $countries_name ?></h3>
-          </div>
-          <div class="panel-body">
-            <?php echo $languageResponse ?>
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY LANGUAGE COMPARISON END-->
-
-      <!--COUNTRY MONEY COMPARISON-->
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Currency comparison between <?php echo $countries_name ?></h3>
-          </div>
-          <div class="panel-body">
-            <?php echo $currencyResultResponse ?>
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY MONEY COMPARISON END-->
-
-      <!--COUNTRY VOLTAGE COMPARISON-->
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Voltage comparison between <?php echo $countries_name ?></h3>
-          </div>
-          <div class="panel-body">
-            <p>Voltage(s) used in <?php echo $nameFrom . ": " . $voltageListFrom ?></p>
-            <p>Voltage(s) used in <?php echo $nameTo . ": " . $voltageListTo ?></p>
-            <p><?php echo $voltageResponse ?></p>
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY VOLTAGE COMPARISON END-->
-
-      <!--COUNTRY PLUG COMPARISON-->
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Plug comparison between <?php echo $countries_name ?></h3>
-          </div>
-          <div class="panel-body">
-            WIP
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY PLUG COMPARISON END-->
-
-      <!--COUNTRY ROAD COMPARISON-->
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Driving side comparsion between <?php echo $countries_name ?></h3>
-          </div>
-          <div class="panel-body">
-            <?php echo $roadResponse ?>
-          </div>
-        </div>
-      </div>
-      <!--COUNTRY ROAD COMPARISON END-->
     </div>
-  </div>
+    <!--COUNTRY TO GENERIC INFO END-->
+
+    <!--COUNTRY LANGUAGE COMPARISON-->
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-globe"></i> Language comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+        </div>
+        <div class="panel-body">
+          Coming Soon
+        </div>
+      </div>
+    </div>
+    <!--COUNTRY LANGUAGE COMPARISON END-->
+
+    <!--COUNTRY MONEY COMPARISON-->
+    <div class="col-md-12">
+      <div class="panel panel-<?php echo $Currency_Frame ?>">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-usd"></i> Currency comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+        </div>
+        <div class="panel-body">
+          <?php echo $Exchange_Response ?>
+        </div>
+      </div>
+    </div>
+    <!--COUNTRY MONEY COMPARISON END-->
+
+    <!--COUNTRY VOLTAGE COMPARISON-->
+    <div class="col-md-12">
+      <div class="panel panel-<?php echo $Voltage_Frame ?>">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-bolt"></i> Voltage comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+        </div>
+        <div class="panel-body">
+        	<?php echo $Voltage_Response ?>
+        </div>
+      </div>
+    </div>
+    <!--COUNTRY VOLTAGE COMPARISON END-->
+
+    <!--COUNTRY PLUG COMPARISON-->
+    <div class="col-md-12">
+      <div class="panel panel-<?php echo $Plug_Frame ?>">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-plug"></i> Plug comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+        </div>
+        <div class="panel-body">
+          <?php echo $Plug_Response ?>
+        </div>
+      </div>
+    </div>
+    <!--COUNTRY PLUG COMPARISON END-->
+
+    <!--COUNTRY ROAD COMPARISON-->
+    <div class="col-md-12">
+      <div class="panel panel-<?php echo $Driving_Frame ?>">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-car"></i> Driving side comparsion between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+        </div>
+        <div class="panel-body">
+          <?php echo $Driving_Response ?>
+        </div>
+      </div>
+    </div>
+    <!--COUNTRY ROAD COMPARISON END-->
+
+    <!--EMBASSY LISTING BEGIN-->
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-university"></i> Embassies and consulates</h3>
+        </div>
+        <div class="panel-body">
+          Coming soon. Help us complete this information here!
+        </div>
+      </div>
+    </div>
+    <!--EMBASSY LISTING END-->
+
+    <!--LEGAL PAPERS BEGIN-->
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> Legal papers</h3>
+        </div>
+        <div class="panel-body">
+          Coming soon. Help us complete this information here!
+        </div>
+      </div>
+    </div>
+    <!--LEGAL PAPERS END-->
+	</div>
+</div>
 </body>
 </html>

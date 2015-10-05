@@ -1,23 +1,9 @@
-<?php
-	define('FromFile', TRUE);
-	include 'config.php';
-
-	//Relation Query + declaration BEGIN
-  $Points = 0;
-  $relationQuery = "SELECT * FROM `Relation` WHERE `Points` >= 1 ORDER BY `Points` DESC LIMIT 5";
-  $relationResult = mysqli_query($conn, $relationQuery);
-  //Relation Query + declaration BEGIN
-
-
-?>
-
 <html>
 <head>
-	<title>TravellingTo | Trip planning done simple</title>
+	<title>RAWDATA</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/darkly/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +27,7 @@
 		    <li><a href="index.php">Index</a></li>
 		    <li><a href="about.php">About Us</a></li>
 		    <li><a href="disclaimer.php">Disclaimer</a></li>
-		    <li><a href="/contribute">Contribute</a></li>
+		    <li><a href="helpus.php">Contribute</a></li>
 				<li><a href="contact.php">Contact Us</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
@@ -294,8 +280,9 @@
 						<option value="UG">Uganda</option>
 						<option value="UA">Ukraine</option>
 						<option value="AE">United Arab Emirates</option>
-						<option value="UK">United Kingdom</option>
+						<option value="GB">United Kingdom</option>
 						<option value="US">United States</option>
+						<option value="UM">United States Minor Outlying Islands</option>
 						<option value="UY">Uruguay</option>
 						<option value="UZ">Uzbekistan</option>
 						<option value="VU">Vanuatu</option>
@@ -548,8 +535,9 @@
 						<option value="UG">Uganda</option>
 						<option value="UA">Ukraine</option>
 						<option value="AE">United Arab Emirates</option>
-						<option value="UK">United Kingdom</option>
+						<option value="GB">United Kingdom</option>
 						<option value="US">United States</option>
+						<option value="UM">United States Minor Outlying Islands</option>
 						<option value="UY">Uruguay</option>
 						<option value="UZ">Uzbekistan</option>
 						<option value="VU">Vanuatu</option>
@@ -570,34 +558,6 @@
 					<button type="submit" class="btn btn-success center-block">Submit</button>
 				</div>
 			</form>
-		</div>
-		<div class="row">
-		</br>
-			<div class="col-sm-12 col-lg-6 col-lg-offset-3">
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-				    <h3 class="panel-title"><i class="fa fa-globe"></i> 5 Most searched trips</h3>
-				  </div>
-				  <div class="list-group">
-				    <?php 
-				    while ($row = mysqli_fetch_array($relationResult)) {
-				    	echo '<a href="/result.php?cfrom=' . $row["Origin"] . '&cto=' . $row["Destination"] . '" class="list-group-item"><i class="fa fa-plane"></i> ';
-				    	$countryFromQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $row["Origin"] . "'";
-				    	$countryFromResult = mysqli_query($conn, $countryFromQuery);
-  						while($data = mysqli_fetch_array($countryFromResult)) {
-  							echo "From " . $data["Name"];
-  						};
-  						$countryToQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $row["Destination"] . "'";
-				    	$countryToResult = mysqli_query($conn, $countryToQuery);
-  						while($data = mysqli_fetch_array($countryToResult)) {
-  							echo " to " . $data["Name"];
-  						};
-  						echo '<span class="badge">' . $row["Points"] . '</span></a>';
-						  };
-						  ?>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </body>
