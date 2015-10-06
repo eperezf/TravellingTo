@@ -77,7 +77,7 @@
       	<img src="http://placehold.it/600x400" alt="...">
       	<div class="caption">
         	<h3>Vicente Rosati</h3>
-        	<p>Description goes here!</p>
+        	<p>Fan of music in general, bass player.</p>
         	<p><a href="#" class="btn btn-default" role="button">Email</a></p>
       	</div>
     	</div>
