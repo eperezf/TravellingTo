@@ -8,6 +8,6 @@ if (defined('FromFile')){
   $conn = new mysqli($server, $user, $password, $database);
   $nameFrom = "";
   $nameTo = "";
-  //Connection configuration END
+  //Connection configuration END!
 }
 ?>
