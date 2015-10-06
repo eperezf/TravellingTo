@@ -35,7 +35,7 @@ $countryResult = mysqli_query($conn, $countryQuery)
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
-		    <li><a href="/index.php">Index</a></li>
+		    <li><a href="/index.php">Home</a></li>
 		    <li><a href="/about.php">About Us</a></li>
 		    <li><a href="/disclaimer.php">Disclaimer</a></li>
 		    <li><a href="/contribute">Contribute</a></li>
