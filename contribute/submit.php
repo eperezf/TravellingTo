@@ -23,11 +23,9 @@ curl_close ($ch);
 $responseJSON = json_decode($response);
 if ($responseJSON->success == 1){
 	$CaptchaOK = "OK";
-	//echo "Captcha OK! </br>"; //DEBUG
 }
 else {
 	$CaptchaOK = "ERROR";
-	//echo "Captcha ERROR! </br>"; //DEBUG
 	$_SESSION["NOTICE"] = "Captcha";
 };
 
@@ -40,7 +38,6 @@ while ($row = mysqli_fetch_array($countryResult)){
 
 //If the data is a Currency:
 if ($_SESSION["Data"]=="curr"){
-	//echo "Data is Currency! </br>"; //DEBUG
 
 	//Get the Currency ID for adding purposes:
 	$currencyQuery = "SELECT * FROM `Currency` WHERE Name = '" . $_POST["name"] . "'";
@@ -55,13 +52,10 @@ if ($_SESSION["Data"]=="curr"){
 	while ($row = mysqli_fetch_array($dataResult)){
 		if ($row["CurrencyName"] == $_POST["name"]){
 			$duplicate = TRUE;
-			//echo "Entered currency is duplicate! </br>"; //DEBUG
-			//Redirect to the viewer and POST and error:
 			$_SESSION["NOTICE"] = "Duplicate";
 		}
 		else {
 			$duplicate = FALSE;
-			//echo "Entered currency is not duplicate! </br>"; //DEBUG
 		};
 	};
 
@@ -69,12 +63,9 @@ if ($_SESSION["Data"]=="curr"){
 	if ($CaptchaOK == "OK" && $duplicate == FALSE){
 		$insertQuery = "INSERT INTO `CurrencyVotes` (idCountry, idCurrency, Points, Official) VALUES (" . $idCountry . ", " . $idCurrency .  ", 0, 0)";
 		mysqli_query($conn, $insertQuery);
-		//echo "Both captcha and duplicate checking are OK. Query done! </br>"; //DEBUG
 		$_SESSION["NOTICE"] == "Success";
 	}
 	else {
-		//Redirect to the viewer and POST an error:
-		//echo "Either the captcha was not OK or it was a duplicate. Query aborted! </br>"; //DEBUG
 	};
 
 
@@ -85,10 +76,6 @@ elseif ($_SESSION["Data"]=="lang"){
 	$dataQuery = "SELECT Country.Name as CountryName, Language.Name as LanguageName, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_SESSION["ISO"] . "'";
 };
 
-
-//If everything was OK, it will redirect to the previous page and say it was OK:
-//echo "System finished!</br>";//DEBUG
-//echo '<a href="view.php?data=' . $_SESSION["Data"] . '&country=' . $_SESSION["ISO"] . '">Return to previous page</a>'; //DEBUG
 $redirect = 'Location: /contribute/view.php?data=' . $_SESSION["Data"] . '&country=' . $_SESSION["ISO"];
 $_SESSION["Data"] = "";
 $_SESSION["ISO"] = "";
