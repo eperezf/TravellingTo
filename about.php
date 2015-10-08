@@ -68,7 +68,7 @@
       	<div class="caption">
         	<h3>Eduardo Pérez</h3>
         	<p>Fan of computers, videogames, electronic music and cars. Co-Founder of <a href="http://pisapapeles.net">Pisapapeles.net</a></p>
-        	<p><a href="#" class="btn btn-primary" role="button">Twitter</a> <a href="#" class="btn btn-default" role="button">Email</a></p>
+        	<p><a href="http://twitter.com/eperezf" class="btn btn-primary" role="button">Twitter</a> <a href="#" class="btn btn-default" role="button">Email</a></p>
       	</div>
     	</div>
   	</div>
