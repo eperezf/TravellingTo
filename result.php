@@ -139,7 +139,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-home"></i> Information of <strong><?php echo $Name_From ?></strong></h3>
         </div>
         <div class="panel-body">
-          <img src="http://placehold.it/300x200" class="img-responsive center-block"></br>
+          <img src="http://www.geonames.org/flags/x/<?php echo strtolower($ISO_From) ?>.gif" class="img-responsive center-block"></br>
           <ul class="list-group">
           	<li class="list-group-item">Country code: <?php echo $ISO_From ?></li>
             <li class="list-group-item">Capital: <?php echo $Capital_From ?></li>
@@ -159,7 +159,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-plane"></i> Information of <strong><?php echo $Name_To ?></strong></h3>
         </div>
         <div class="panel-body">
-         <img src="http://placehold.it/300x200" class="img-responsive center-block"></br>
+         <img src="http://www.geonames.org/flags/x/<?php echo strtolower($ISO_To) ?>.gif" class="img-responsive center-block"></br>
           <ul class="list-group">
           	<li class="list-group-item">Country code: <?php echo $ISO_To ?></li>
             <li class="list-group-item">Capital: <?php echo $Capital_To ?></li>
