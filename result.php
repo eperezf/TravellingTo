@@ -178,7 +178,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-globe"></i> Language comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
         </div>
         <div class="panel-body">
-          Coming Soon
+          Coming Soon. Help us complete this information here: <a href="/contribute/view.php?data=lang&country=<?php echo $ISO_From ?>"><?php echo $Name_From ?></a> or <a href="/contribute/view.php?data=lang&country=<?php echo $ISO_To ?>"><?php echo $Name_To ?></a>
         </div>
       </div>
     </div>
@@ -243,7 +243,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-university"></i> Embassies and consulates</h3>
         </div>
         <div class="panel-body">
-          Coming soon. Help us complete this information here!
+          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=embass&cfrom=<?php echo $ISO_From ?>&cto=<?php echo $ISO_To ?>">here</a>
         </div>
       </div>
     </div>
@@ -256,7 +256,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> Legal papers</h3>
         </div>
         <div class="panel-body">
-          Coming soon. Help us complete this information here!
+          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=legal&cfrom=<?php echo $ISO_From ?>&cto=<?php echo $ISO_To ?>">here</a>
         </div>
       </div>
     </div>
