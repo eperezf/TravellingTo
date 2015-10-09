@@ -132,6 +132,7 @@ session_start();
 		</div>
 	</div>
 	<!--COUNTRY FROM GENERIC INFO-->
+  <div class="row">
     <div class="col-md-6 col-lg-6 col-sm-12">
       <div class="panel panel-info">
         <div class="panel-heading">
@@ -169,9 +170,10 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY TO GENERIC INFO END-->
-
     <!--COUNTRY LANGUAGE COMPARISON-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
@@ -182,9 +184,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY LANGUAGE COMPARISON END-->
 
     <!--COUNTRY MONEY COMPARISON-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-<?php echo $Currency_Frame ?>">
         <div class="panel-heading">
@@ -195,9 +199,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY MONEY COMPARISON END-->
 
     <!--COUNTRY VOLTAGE COMPARISON-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-<?php echo $Voltage_Frame ?>">
         <div class="panel-heading">
@@ -208,9 +214,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY VOLTAGE COMPARISON END-->
 
     <!--COUNTRY PLUG COMPARISON-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-<?php echo $Plug_Frame ?>">
         <div class="panel-heading">
@@ -221,9 +229,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY PLUG COMPARISON END-->
 
     <!--COUNTRY ROAD COMPARISON-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-<?php echo $Driving_Frame ?>">
         <div class="panel-heading">
@@ -234,9 +244,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--COUNTRY ROAD COMPARISON END-->
 
     <!--EMBASSY LISTING BEGIN-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
@@ -247,9 +259,11 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--EMBASSY LISTING END-->
 
     <!--LEGAL PAPERS BEGIN-->
+    <div class="row">
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
@@ -260,6 +274,7 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
     <!--LEGAL PAPERS END-->
 	</div>
 </div>
