@@ -17,7 +17,7 @@
 
 <html>
 <head>
-	<title>TravellingTo | Trip planning done simple</title>
+	<title>TravellingTo | Travel planning done simple</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +25,32 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
+  <style type="text/css">
+  	body { 
+	   	background: url('images/background2.jpg'); 
+	   	background-size: cover; 
+	   	background-repeat: no-repeat; 
+	   	background-attachment: fixed; 
+	   	!important; 
+   	}
+   	.navbar-default { 
+	   	background-color: rgba(78,93,108,0.35); 
+	   	!important 
+   	} 
+   	.btn-success {
+	   	background-color: rgba(92,184,92,0.5);
+	   	!important 
+   	}
+   	.panel {
+	   	background-color: rgba(78, 93, 108, 0);
+	   	box-shadow: 0 3px 14px rgba(0,0,0,0.5);
+	   	!important 
+   	}
+   	.list-group-item {
+	   	background-color: rgba(78,93,108,0.5);
+	   	!important 
+   	}
+	</style>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -65,7 +91,7 @@
 	  	<h1><p class="text-center">TravellingTo</p></h1>
 		</div>
 		<div class="col-md-12">
-			<h4><p class="text-center">Trip planning done simple</p></h4>
+			<h4><p class="text-center">Travel planning done simple</p></h4>
 		</div>
 	</div>
 	<div class="row">
