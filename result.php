@@ -92,7 +92,7 @@ session_start();
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
     body { 
-      background: url('images/background.jpg'); 
+      background: url('images/background.png'); 
       background-size: cover; 
       background-repeat: no-repeat; 
       background-attachment: fixed; 

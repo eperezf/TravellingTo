@@ -27,7 +27,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
   	body { 
-	   	background: url('images/background2.jpg'); 
+	   	background: url('images/background2.png'); 
 	   	background-size: cover; 
 	   	background-repeat: no-repeat; 
 	   	background-attachment: fixed; 
