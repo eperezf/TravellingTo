@@ -250,7 +250,37 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-plug"></i> Plug comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
         </div>
         <div class="panel-body">
-          <?php echo $Plug_Response ?>
+          <?php if ($Plug_Both_Response != ""): ?>
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Plugs used in both countries:</h4>
+              </div>
+            </div>
+            <div class="row">
+              <?php echo $Plug_Both_Response ?>
+            </div>
+          <?php endif; ?>
+          <?php if ($Plug_From_Response != ""): ?>
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Plugs used only in <?php echo $Name_From ?>:</h4>
+              </div>
+            </div>
+            <div class="row">
+              <?php echo $Plug_From_Response ?>
+            </div>
+          <?php endif; ?>
+          <?php if ($Plug_To_Response != ""): ?>
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Plugs used only in <?php echo $Name_To ?>:</h4>
+              </div>
+            </div>
+            <div class="row">
+              <?php echo $Plug_To_Response ?>
+            </div>
+          <?php endif; ?>
+
         </div>
       </div>
     </div>
