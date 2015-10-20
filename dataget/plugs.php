@@ -37,6 +37,9 @@ $List_Both = "";
 $List_From = "";
 $List_To = "";
 $Plug_Response = "";
+$Plug_Both_Response = "";
+$Plug_From_Response = "";
+$Plug_To_Response = "";
 
 $Plug_Array_From =explode(", ", $Plug_List_From);
 foreach($Plug_Array_From As $PlugArray){
@@ -144,275 +147,152 @@ foreach ($Plug_Array_To as $Plug_Array) {
 		$O_Type_To = TRUE;
 	};
 };
-
+//Both responses
 if ($A_Type_From == TRUE && $A_Type_To == TRUE){
-	$A_Type_State = "BOTH";
-	$List_Both = $List_Both . "A, ";
-}
-elseif ($A_Type_From == TRUE){
-	$A_Type_State = "FROM";
-	$List_From = $List_From . "A, ";
-}
-elseif ($A_Type_To == TRUE){
-	$A_Type_State = "TO";
-	$List_To = $List_To . "A, ";
-}
-elseif ($A_Type_From == FALSE && $A_Type_To == FALSE){
-	$A_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/A.png"><div class="caption"><h4>A type</h4></div></div></div>';
 };
-
 if ($B_Type_From == TRUE && $B_Type_To == TRUE){
-	$B_Type_State = "BOTH";
-	$List_Both = $List_Both . "B, ";
-}
-elseif ($B_Type_From == TRUE){
-	$B_Type_State = "FROM";
-	$List_From = $List_From . "B, ";
-}
-elseif ($B_Type_To == TRUE){
-	$B_Type_State = "TO";
-	$List_To = $List_To . "B, ";
-}
-elseif ($B_Type_From == FALSE && $B_Type_To == FALSE){
-	$B_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/B.png"><div class="caption"><h4>B type</h4></div></div></div>';
 };
-
 if ($C_Type_From == TRUE && $C_Type_To == TRUE){
-	$C_Type_State = "BOTH";
-	$List_Both = $List_Both . "C, ";
-}
-elseif ($C_Type_From == TRUE){
-	$C_Type_State = "FROM";
-	$List_From = $List_From . "C, ";
-}
-elseif ($C_Type_To == TRUE){
-	$C_Type_State = "TO";
-	$List_To = $List_To . "C, ";
-}
-elseif ($C_Type_From == FALSE && $C_Type_To == FALSE){
-	$C_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/C.png"><div class="caption"><h4>C type</h4></div></div></div>';
 };
-
 if ($D_Type_From == TRUE && $D_Type_To == TRUE){
-	$D_Type_State = "BOTH";
-	$List_Both = $List_Both . "D, ";
-}
-elseif ($D_Type_From == TRUE){
-	$D_Type_State = "FROM";
-	$List_From = $List_From . "D, ";
-}
-elseif ($D_Type_To == TRUE){
-	$D_Type_State = "TO";
-	$List_To = $List_To . "D, ";
-}
-elseif ($D_Type_From == FALSE && $D_Type_To == FALSE){
-	$D_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/D.png"><div class="caption"><h4>D type</h4></div></div></div>';
 };
-
 if ($E_Type_From == TRUE && $E_Type_To == TRUE){
-	$E_Type_State = "BOTH";
-	$List_Both = $List_Both . "E, ";
-}
-elseif ($E_Type_From == TRUE){
-	$E_Type_State = "FROM";
-	$List_From = $List_From . "E, ";
-}
-elseif ($E_Type_To == TRUE){
-	$E_Type_State = "TO";
-	$List_To = $List_To . "E, ";
-}
-elseif ($E_Type_From == FALSE && $E_Type_To == FALSE){
-	$E_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/E.png"><div class="caption"><h4>E type</h4></div></div></div>';
 };
-
 if ($F_Type_From == TRUE && $F_Type_To == TRUE){
-	$F_Type_State = "BOTH";
-	$List_Both = $List_Both . "F, ";
-}
-elseif ($F_Type_From == TRUE){
-	$F_Type_State = "FROM";
-	$List_From = $List_From . "F, ";
-}
-elseif ($F_Type_To == TRUE){
-	$F_Type_State = "TO";
-	$List_To = $List_To . "F, ";
-}
-elseif ($F_Type_From == FALSE && $F_Type_To == FALSE){
-	$F_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/F.png"><div class="caption"><h4>F type</h4></div></div></div>';
 };
-
 if ($G_Type_From == TRUE && $G_Type_To == TRUE){
-	$G_Type_State = "BOTH";
-	$List_Both = $List_Both . "G, ";
-}
-elseif ($G_Type_From == TRUE){
-	$G_Type_State = "FROM";
-	$List_From = $List_From . "G, ";
-}
-elseif ($G_Type_To == TRUE){
-	$G_Type_State = "TO";
-	$List_To = $List_To . "G, ";
-}
-elseif ($G_Type_From == FALSE && $G_Type_To == FALSE){
-	$G_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/G.png"><div class="caption"><h4>G type</h4></div></div></div>';
 };
-
 if ($H_Type_From == TRUE && $H_Type_To == TRUE){
-	$H_Type_State = "BOTH";
-	$List_Both = $List_Both . "H, ";
-}
-elseif ($H_Type_From == TRUE){
-	$H_Type_State = "FROM";
-	$List_From = $List_From . "H, ";
-}
-elseif ($H_Type_To == TRUE){
-	$H_Type_State = "TO";
-	$List_To = $List_To . "H, ";
-}
-elseif ($H_Type_From == FALSE && $H_Type_To == FALSE){
-	$H_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/H.png"><div class="caption"><h4>H type</h4></div></div></div>';
 };
-
 if ($I_Type_From == TRUE && $I_Type_To == TRUE){
-	$I_Type_State = "BOTH";
-	$List_Both = $List_Both . "I, ";
-}
-elseif ($I_Type_From == TRUE){
-	$I_Type_State = "FROM";
-	$List_From = $List_From . "I, ";
-}
-elseif ($I_Type_To == TRUE){
-	$I_Type_State = "TO";
-	$List_To = $List_To . "I, ";
-}
-elseif ($I_Type_From == FALSE && $I_Type_To == FALSE){
-	$I_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/I.png"><div class="caption"><h4>I type</h4></div></div></div>';
 };
-
 if ($J_Type_From == TRUE && $J_Type_To == TRUE){
-	$J_Type_State = "BOTH";
-	$List_Both = $List_Both . "J, ";
-}
-elseif ($J_Type_From == TRUE){
-	$J_Type_State = "FROM";
-	$List_From = $List_From . "J, ";
-}
-elseif ($J_Type_To == TRUE){
-	$J_Type_State = "TO";
-	$List_To = $List_To . "J, ";
-}
-elseif ($J_Type_From == FALSE && $J_Type_To == FALSE){
-	$J_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/J.png"><div class="caption"><h4>J type</h4></div></div></div>';
 };
-
 if ($K_Type_From == TRUE && $K_Type_To == TRUE){
-	$K_Type_State = "BOTH";
-	$List_Both = $List_Both . "K, ";
-}
-elseif ($K_Type_From == TRUE){
-	$K_Type_State = "FROM";
-	$List_From = $List_From . "K, ";
-}
-elseif ($K_Type_To == TRUE){
-	$K_Type_State = "TO";
-	$List_To = $List_To . "K, ";
-}
-elseif ($K_Type_From == FALSE && $K_Type_To == FALSE){
-	$K_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/K.png"><div class="caption"><h4>K type</h4></div></div></div>';
 };
-
 if ($L_Type_From == TRUE && $L_Type_To == TRUE){
-	$L_Type_State = "BOTH";
-	$List_Both = $List_Both . "L, ";
-}
-elseif ($L_Type_From == TRUE){
-	$L_Type_State = "FROM";
-	$List_From = $List_From . "L, ";
-}
-elseif ($L_Type_To == TRUE){
-	$L_Type_State = "TO";
-	$List_To = $List_To . "L, ";
-}
-elseif ($L_Type_From == FALSE && $L_Type_To == FALSE){
-	$L_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/L.png"><div class="caption"><h4>L type</h4></div></div></div>';
 };
-
 if ($M_Type_From == TRUE && $M_Type_To == TRUE){
-	$M_Type_State = "BOTH";
-	$List_Both = $List_Both . "M, ";
-}
-elseif ($M_Type_From == TRUE){
-	$M_Type_State = "FROM";
-	$List_From = $List_From . "M, ";
-}
-elseif ($M_Type_To == TRUE){
-	$M_Type_State = "TO";
-	$List_To = $List_To . "M, ";
-}
-elseif ($M_Type_From == FALSE && $M_Type_To == FALSE){
-	$M_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/M.png"><div class="caption"><h4>M type</h4></div></div></div>';
 };
-
 if ($N_Type_From == TRUE && $N_Type_To == TRUE){
-	$N_Type_State = "BOTH";
-	$List_Both = $List_Both . "N, ";
-}
-elseif ($N_Type_From == TRUE){
-	$N_Type_State = "FROM";
-	$List_From = $List_From . "N, ";
-}
-elseif ($N_Type_To == TRUE){
-	$N_Type_State = "TO";
-	$List_To = $List_To . "N, ";
-}
-elseif ($N_Type_From == FALSE && $N_Type_To == FALSE){
-	$N_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/N.png"><div class="caption"><h4>N type</h4></div></div></div>';
 };
-
 if ($O_Type_From == TRUE && $O_Type_To == TRUE){
-	$O_Type_State = "BOTH";
-	$List_Both = $List_Both . "O, ";
-}
-elseif ($O_Type_From == TRUE){
-	$O_Type_State = "FROM";
-	$List_From = $List_From . "O, ";
-}
-elseif ($O_Type_To == TRUE){
-	$O_Type_State = "TO";
-	$List_To = $List_To . "O, ";
-}
-elseif ($O_Type_From == FALSE && $O_Type_To == FALSE){
-	$O_Type_State = "NONE";
+	$Plug_Both_Response = $Plug_Both_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/O.png"><div class="caption"><h4>O type</h4></div></div></div>';
+};
+//From responses
+if ($A_Type_From == TRUE && $A_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/A.png"><div class="caption"><h4>A type</h4></div></div></div>';
+};
+if ($B_Type_From == TRUE && $B_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/B.png"><div class="caption"><h4>B type</h4></div></div></div>';
+};
+if ($C_Type_From == TRUE && $C_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/C.png"><div class="caption"><h4>C type</h4></div></div></div>';
+};
+if ($D_Type_From == TRUE && $D_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/D.png"><div class="caption"><h4>D type</h4></div></div></div>';
+};
+if ($E_Type_From == TRUE && $E_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/E.png"><div class="caption"><h4>E type</h4></div></div></div>';
+};
+if ($F_Type_From == TRUE && $F_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/F.png"><div class="caption"><h4>F type</h4></div></div></div>';
+};
+if ($G_Type_From == TRUE && $G_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/G.png"><div class="caption"><h4>G type</h4></div></div></div>';
+};
+if ($H_Type_From == TRUE && $H_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/H.png"><div class="caption"><h4>H type</h4></div></div></div>';
+};
+if ($I_Type_From == TRUE && $I_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/I.png"><div class="caption"><h4>I type</h4></div></div></div>';
+};
+if ($J_Type_From == TRUE && $J_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/J.png"><div class="caption"><h4>J type</h4></div></div></div>';
+};
+if ($K_Type_From == TRUE && $K_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/K.png"><div class="caption"><h4>K type</h4></div></div></div>';
+};
+if ($L_Type_From == TRUE && $L_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/L.png"><div class="caption"><h4>L type</h4></div></div></div>';
+};
+if ($M_Type_From == TRUE && $M_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/M.png"><div class="caption"><h4>M type</h4></div></div></div>';
+};
+if ($N_Type_From == TRUE && $N_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/N.png"><div class="caption"><h4>N type</h4></div></div></div>';
+};
+if ($O_Type_From == TRUE && $O_Type_To == FALSE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/O.png"><div class="caption"><h4>O type</h4></div></div></div>';
+};
+//TO responses
+if ($A_Type_From == FALSE && $A_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/A.png"><div class="caption"><h4>A type</h4></div></div></div>';
+};
+if ($B_Type_From == FALSE && $B_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/B.png"><div class="caption"><h4>B type</h4></div></div></div>';
+};
+if ($C_Type_From == FALSE && $C_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/C.png"><div class="caption"><h4>C type</h4></div></div></div>';
+};
+if ($D_Type_From == FALSE && $D_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/D.png"><div class="caption"><h4>D type</h4></div></div></div>';
+};
+if ($E_Type_From == FALSE && $E_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/E.png"><div class="caption"><h4>E type</h4></div></div></div>';
+};
+if ($F_Type_From == FALSE && $F_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/F.png"><div class="caption"><h4>F type</h4></div></div></div>';
+};
+if ($G_Type_From == FALSE && $G_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/G.png"><div class="caption"><h4>G type</h4></div></div></div>';
+};
+if ($H_Type_From == FALSE && $H_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/H.png"><div class="caption"><h4>H type</h4></div></div></div>';
+};
+if ($I_Type_From == FALSE && $I_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/I.png"><div class="caption"><h4>I type</h4></div></div></div>';
+};
+if ($J_Type_From == FALSE && $J_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/J.png"><div class="caption"><h4>J type</h4></div></div></div>';
+};
+if ($K_Type_From == FALSE && $K_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/K.png"><div class="caption"><h4>K type</h4></div></div></div>';
+};
+if ($L_Type_From == FALSE && $L_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/L.png"><div class="caption"><h4>L type</h4></div></div></div>';
+};
+if ($M_Type_From == FALSE && $M_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/M.png"><div class="caption"><h4>M type</h4></div></div></div>';
+};
+if ($N_Type_From == FALSE && $N_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/N.png"><div class="caption"><h4>N type</h4></div></div></div>';
+};
+if ($O_Type_From == FALSE && $O_Type_To == TRUE){
+	$Plug_From_Response = $Plug_From_Response . '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="thumbnail"><img src="images/plugs/O.png"><div class="caption"><h4>O type</h4></div></div></div>';
 };
 
-$List_Both = substr($List_Both, 0, -2);
-$List_From = substr($List_From, 0, -2);
-$List_To = substr($List_To, 0, -2);
-
-if ($List_Both != ""){
-	$Plug_Response = "Both countries use " . $List_Both . " Type(s) plug. ";
+if ($Plug_Both_Response == ""){
+	$Plug_Frame = "danger";
+};
+if ($Plug_From_Response == "" && $Plug_To_Response == ""){
 	$Plug_Frame = "success";
-}
-else {
-
 };
-
-if ($List_From != ""){
-	$Plug_Response = $Plug_Response . $Name_From . " use " . $List_From . " Type(s) plug but " . $Name_To . " doesn't. ";
+if ($Plug_Both_Response != "" && $Plug_From_Response != "" || $Plug_To_Response != ""){
 	$Plug_Frame = "warning";
-}
-else {
-
 };
-if ($List_To !=""){
-	$Plug_Response = $Plug_Response . $Name_To . " use " . $List_To . " type(s) plug but " . $Name_From . " doesn't.";
-	$Plug_Frame = "warning";
-}
-else {
-
-};
-
-
-
-
 ?>
