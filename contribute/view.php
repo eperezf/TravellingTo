@@ -25,6 +25,14 @@ elseif ($_GET["data"]=="lang"){
 $dataResult = mysqli_query($conn, $dataQuery);
 $formResult = mysqli_query($conn, $formQuery);
 
+if (isset ($Country_Name)){
+
+}
+	else{
+		header("Location: index.php");
+    die();
+	}
+
 ?>
 <html>
 <head>
