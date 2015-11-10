@@ -37,10 +37,10 @@ $formResult = mysqli_query($conn, $formQuery);
 if (isset ($Country_Name)){
  
 }
-	else{
-		header("Location: index.php");
-    die();
-	}
+else{
+	header("Location: index.php");
+  die();
+}
 
 ?>
 <html>
