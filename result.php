@@ -28,6 +28,12 @@ session_start();
     $Points = $row["Points"];
   }
   //Relation Query + declaration BEGIN
+   //Check if countries are valid BEGIN
+  if (empty($id_Relation)){
+    header("Location: /");
+    die();
+  }
+  //Check if countries are valid END
 
   //Relation point assignation BEGIN
   $Points = $Points + 1;
