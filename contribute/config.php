@@ -3,7 +3,7 @@ if (defined('FromFile')){
 	//Connection configuration BEGIN
   $server = "localhost";
   $user = "root";
-  $password = "";
+  $password = "root";
   $database = "TravellingTo";
   $conn = new mysqli($server, $user, $password, $database);
   $nameFrom = "";

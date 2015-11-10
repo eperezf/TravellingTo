@@ -10,7 +10,15 @@ while ($row = mysqli_fetch_array($countryResult)){
 };
 $_SESSION["ISO"] = $_GET["country"];
 
-if ($_GET["data"]=="curr"){
+
+if ($_GET["data"] != "curr"||$_GET["data"] != "lang"){
+    header("Location: /");
+    die();
+
+}
+
+
+elseif ($_GET["data"]=="curr"){
 	$dataQuery="SELECT Country.name as CountryName, Currency.Name as CurrencyName, Currency.Code as CurrencyCode, Points, Official FROM `CurrencyVotes` JOIN `Country` JOIN `Currency` WHERE CurrencyVotes.idCurrency = Currency.idCurrency AND CurrencyVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_GET["country"] . "'";
 	$Data = "currency";
 	$formQuery="SELECT Name from `Currency` ORDER BY Name ASC";
@@ -22,11 +30,12 @@ elseif ($_GET["data"]=="lang"){
 	$formQuery="SELECT Name from `Language` ORDER BY Name ASC";
 	$_SESSION["Data"] = "lang";
 };
+
 $dataResult = mysqli_query($conn, $dataQuery);
 $formResult = mysqli_query($conn, $formQuery);
 
 if (isset ($Country_Name)){
-
+ 
 }
 	else{
 		header("Location: index.php");
