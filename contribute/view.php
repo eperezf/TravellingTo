@@ -1,44 +1,24 @@
 <?php
-//Start session:
-session_start();
+session_start(); 
 
-//Redirect if GET values are not set:
-if (isset($_GET["country"]) && isset($_GET["data"])){
-
-}
-else {
-	header("Location: /contribute");
-  die();
-};
-
-//Load config.php for databes connection:
 define("FromFile", TRUE);
 include 'config.php';
 
-//Get country name
 $countryQuery = "SELECT Name FROM Country WHERE ISO ='" . $_GET["country"] . "'";
 $countryResult = mysqli_query($conn, $countryQuery);
 while ($row = mysqli_fetch_array($countryResult)){
 	$Country_Name = $row["Name"];
 };
-
-//Check if country exists:
-if (isset ($Country_Name)){
-
-}
-else{
-	header("Location: /contribute");
-  die();
-};
-
-//Set country code as session variable:
 $_SESSION["ISO"] = $_GET["country"];
 
-//If data type is different, redirect. If not, do the query:
-if ($_GET["data"] != "curr" && $_GET["data"] != "lang"){
+
+if ($_GET["data"] != "curr"&&$_GET["data"] != "lang"){
     header("Location: /");
     die();
+
 }
+
+
 elseif ($_GET["data"]=="curr"){
 	$dataQuery="SELECT Country.name as CountryName, Currency.Name as CurrencyName, Currency.Code as CurrencyCode, Points, Official FROM `CurrencyVotes` JOIN `Country` JOIN `Currency` WHERE CurrencyVotes.idCurrency = Currency.idCurrency AND CurrencyVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_GET["country"] . "'";
 	$Data = "currency";
@@ -52,9 +32,16 @@ elseif ($_GET["data"]=="lang"){
 	$_SESSION["Data"] = "lang";
 };
 
-//do the querys:
 $dataResult = mysqli_query($conn, $dataQuery);
 $formResult = mysqli_query($conn, $formQuery);
+
+if (isset ($Country_Name)){
+ 
+}
+else{
+	header("Location: index.php");
+  die();
+}
 
 ?>
 <html>

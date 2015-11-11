@@ -10,5 +10,3 @@ if (defined('FromFile')){
   $nameTo = "";
   //Connection configuration END
 }
-
-?>

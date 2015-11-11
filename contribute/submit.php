@@ -84,12 +84,10 @@ elseif ($_SESSION["Data"]=="lang"){
 	$dataQuery = "SELECT Country.Name as CountryName, Language.Name as LanguageName, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_SESSION["ISO"] . "'";
 };
 
-//Set redirect address:
 $redirect = 'Location: /contribute/view.php?data=' . $_SESSION["Data"] . '&country=' . $_SESSION["ISO"];
 $_SESSION["Data"] = "";
 $_SESSION["ISO"] = "";
 
-//Redirect:
 header($redirect);
 ?>
 
