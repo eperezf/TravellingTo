@@ -2,7 +2,7 @@
 
 session_start(); 
 define("FromFile", TRUE);
-include 'config.php';
+include '/dataget/config.php';
 
 $countryQuery ="SELECT Name, ISO FROM `Country`";
 $countryResult = mysqli_query($conn, $countryQuery)

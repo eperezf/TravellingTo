@@ -1,6 +1,6 @@
 <?php
 	define('FromFile', TRUE);
-	include 'config.php';
+	include '/dataget/config.php';
 
 	//Relation Query + declaration BEGIN
   $Points = 0;
