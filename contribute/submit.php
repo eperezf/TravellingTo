@@ -1,4 +1,12 @@
 <?php
+//Direct access Block
+if (isset($_POST["g-recaptcha-response"])){
+
+}
+else {
+	header("Location: /contribute");
+    die();
+}
 
 //Define stuff:
 define("FromFile", TRUE);
