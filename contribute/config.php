@@ -11,5 +11,3 @@ if (defined('FromFile')){
   //Connection configuration END
 }
 ?>
-
-

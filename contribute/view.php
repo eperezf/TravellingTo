@@ -11,7 +11,7 @@ while ($row = mysqli_fetch_array($countryResult)){
 $_SESSION["ISO"] = $_GET["country"];
 
 
-if ($_GET["data"] != "curr"||$_GET["data"] != "lang"){
+if ($_GET["data"] != "curr"&&$_GET["data"] != "lang"){
     header("Location: /");
     die();
 
