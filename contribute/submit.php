@@ -11,7 +11,7 @@ else {
 //Define stuff:
 define("FromFile", TRUE);
 session_start(); 
-include '/dataget/config.php';
+include 'config.php';
 $URL = "https://www.google.com/recaptcha/api/siteverify";
 $SECRET ="6Lek8w0TAAAAAPCMz2A8JgBSz9DgeuE67AlXeqoS";
 $RESPONSE = $_POST["g-recaptcha-response"];

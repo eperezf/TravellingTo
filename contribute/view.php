@@ -13,7 +13,7 @@ else {
 
 //Load config.php for databes connection:
 define("FromFile", TRUE);
-include '/dataget/config.php';
+include 'config.php';
 
 //Get country name
 $countryQuery = "SELECT Name FROM Country WHERE ISO ='" . $_GET["country"] . "'";
