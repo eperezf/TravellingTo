@@ -142,12 +142,24 @@ else{
 				 ?>
 				<tr>
 					<td>ID</td>
-					<td>Name</td>
+					<td>Language Name</td>
+					<td>ISO Code</td>
+					<td>Hello</td>
+					<td>Goodbye</td>
+					<td>Bathroom</td>
+					<td>Place</td>
+					<td>No Speak</td>
 					<td>Points</td>
 					<td>Official</td>
 					<td>Action</td>
 				</tr>
 				<tr>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
