@@ -81,7 +81,7 @@ session_start();
   include 'dataget/currency_convert.php';
   include 'dataget/voltage.php';
   include 'dataget/driving.php';
-  include 'dataget/plugs.php';
+  include 'dataget/plugs.php'; 
 
   ?>
 
@@ -125,7 +125,7 @@ session_start();
 </head>
 <body>
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
+	<div class="container-fluid"> 
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -203,6 +203,7 @@ session_start();
     </div>
   </div>
     <!--COUNTRY TO GENERIC INFO END-->
+    
     <!--COUNTRY LANGUAGE COMPARISON-->
   <div class="row">
     <div class="col-md-12">

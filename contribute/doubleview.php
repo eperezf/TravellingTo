@@ -1,49 +1,3 @@
-<?php
-session_start(); 
-
-define("FromFile", TRUE);
-include 'config.php';
-
-$countryQuery = "SELECT Name FROM Country WHERE ISO ='" . $_GET["country"] . "'";
-$countryResult = mysqli_query($conn, $countryQuery);
-while ($row = mysqli_fetch_array($countryResult)){
-	$Country_Name = $row["Name"];
-};
-$_SESSION["ISO"] = $_GET["country"];
-
-
-if ($_GET["data"] != "curr"&&$_GET["data"] != "lang"){
-    header("Location: /");
-    die();
-
-}
-
-
-elseif ($_GET["data"]=="curr"){
-	$dataQuery="SELECT Country.name as CountryName, Currency.Name as CurrencyName, Currency.Code as CurrencyCode, Points, Official FROM `CurrencyVotes` JOIN `Country` JOIN `Currency` WHERE CurrencyVotes.idCurrency = Currency.idCurrency AND CurrencyVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_GET["country"] . "'";
-	$Data = "currency";
-	$formQuery="SELECT Name from `Currency` ORDER BY Name ASC";
-	$_SESSION["Data"] = "curr";
-}
-elseif ($_GET["data"]=="lang"){
-	$dataQuery = "SELECT Country.Name as CountryName, Language.Name as LanguageName, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.ISO = '" . $_GET["country"] . "'";
-	$Data = "language";
-	$formQuery="SELECT Name from `Language` ORDER BY Name ASC";
-	$_SESSION["Data"] = "lang";
-};
-
-$dataResult = mysqli_query($conn, $dataQuery);
-$formResult = mysqli_query($conn, $formQuery);
-
-if (isset ($Country_Name)){
- 
-}
-else{
-	header("Location: index.php");
-  die();
-}
-
-?>
 <html>
 <head>
 	<title>TravellingTo | Trip planning done simple</title>
@@ -112,81 +66,33 @@ else{
 	?>
 	<div class="row">
 		<div class="col-md-12">
-			<h1><p class="text-center"><small>Viewing</small> <?php echo $Data ?> <small>of</small> <?php echo $Country_Name ?></p></h1>
+			<h1><p class="text-center">COMPARISON TITLE (DUMMY PAGE)</p></h1>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table">
-				<?php if ($Data == "currency"): ?>
 				<tr>
-					<td>Name</td>
-					<td>ISO Code</td>
-					<td>Points</td>
-					<td>Official</td>
-					<td>Action</td>
-				</tr>
-				<?php while ($row= mysqli_fetch_array($dataResult)): ?>
-				<tr>
-					<td><?php echo $row["CurrencyName"] ?></td>
-					<td><?php echo $row["CurrencyCode"] ?></td>
-					<td><?php echo $row["Points"] ?></td>
-					<td><?php if ($row["Official"] == 1){ echo "Yes";} else {echo "No";}; ?></td>
+					<td>DATA 1</td>
+					<td>DATA 2</td>
+					<td>DATA 3</td>
+					<td>DATA 4</td>
 					<td>ACTION</td>
 				</tr>
-
-				<?php 
-					endwhile;
-					endif;
-					if ($Data == "language"):
-				 ?>
 				<tr>
-<<<<<<< HEAD
-					<td>ID</td>
-					<td>Language Name</td>
-					<td>ISO Code</td>
-					<td>Hello</td>
-					<td>Goodbye</td>
-					<td>Bathroom</td>
-					<td>Place</td>
-					<td>No Speak</td>
-=======
-					<td>Language</td>
-					<td>Hello phrase</td>
-					<td>Goodbye phrase</td>
->>>>>>> double-editor
-					<td>Points</td>
-					<td>Official</td>
-					<td>Action</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
+					<td>DEMO</td>
 				</tr>
-				<?php while ($row= mysqli_fetch_array($dataResult)): ?>
 				<tr>
-<<<<<<< HEAD
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
-					<td>DEMO</td>
-					<td>DEMO</td>
-					<td>DEMO</td>
-					<td>DEMO</td>
-					<td>DEMO</td>
-					<td>DEMO</td>
-=======
-					<td><?php echo $row["LanguageName"] ?></td>
-					<td><?php echo $row["Points"] ?></td>
-					<td><?php echo $row["Hello"] ?></td>
-					<td><?php echo $row["Goodbye"] ?></td>
-					<td><?php if ($row["Official"] == 1){ echo "Yes";} else {echo "No";}; ?></td>
-					<td>ACTION</td>
->>>>>>> double-editor
 				</tr>
-				<?php 
-					endwhile;
-					endif; 
-				?>
-
 			</table>
 		</div>
 	</div>
@@ -195,7 +101,7 @@ else{
 			<h2>Is the list empty or you have a better suggestion? You can add one!</h2>
 		</div>
 		<div class="col-md-6 col-lg-4 col-sm-12">
-			<form action="submit.php" method="POST">
+			<form action="doublesubmit.php" method="POST">
 				<div class="form-group">
     			<label for="name">Name</label>
     			<select class="form-control" id="name" name="name">

@@ -5,7 +5,13 @@ define("FromFile", TRUE);
 include 'config.php';
 
 $countryQuery ="SELECT Name, ISO FROM `Country`";
-$countryResult = mysqli_query($conn, $countryQuery)
+$countryResult = mysqli_query($conn, $countryQuery);
+
+$countryQuery2 ="SELECT Name, ISO FROM `Country`";
+$countryResult2 = mysqli_query($conn, $countryQuery2);
+
+$countryQuery3 ="SELECT Name, ISO FROM `Country`";
+$countryResult3 = mysqli_query($conn, $countryQuery3);
 
 ?>
 <html>
@@ -61,6 +67,7 @@ $countryResult = mysqli_query($conn, $countryQuery)
 			</div>
 		</div>
 		<div class="col-md-12">
+			<h1><p class="text-center">Single country editor:</p></h1>
 			<form action="view.php" method="get">
 			<div class="col-md-12 col-lg-6">
 				<h4><p class="text-center">Select Information</p></h4>
@@ -75,6 +82,45 @@ $countryResult = mysqli_query($conn, $countryQuery)
 					<h4><p class="text-center">Select country</p></h4>
 					<select class="form-control" id="country" name="country">
 						<?php while ($row = mysqli_fetch_array($countryResult)): ?>
+						<option value="<?php echo $row['ISO']; ?>"><?php echo $row["Name"] ?></option>
+						<?php endwhile; ?>
+					</select>
+					<br/>
+					<br/>
+				</div>
+				<div class="col-md-12 col-lg-12">
+					<button type="submit" class="btn btn-success center-block">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-12">
+			</br>
+			<h1><p class="text-center">Double country editor:</p></h1>
+			<form action="doubleviewRAW.php" method="get">
+			<div class="col-md-12 col-lg-4">
+				<h4><p class="text-center">Select Information</p></h4>
+				<select class="form-control" id="data" name="data">
+						<option value="embs">Embassy</option>
+						<option value="legl">Legal papers</option>
+						<option value="vacc">Vaccines</option>
+					</select>
+					<br/>
+					<br/>
+				</div>
+				<div class="col-md-12 col-lg-4">
+					<h4><p class="text-center">Select origin country</p></h4>
+					<select class="form-control" id="cfrom" name="cfrom">
+						<?php while ($row = mysqli_fetch_array($countryResult2)): ?>
+						<option value="<?php echo $row['ISO']; ?>"><?php echo $row["Name"] ?></option>
+						<?php endwhile; ?>
+					</select>
+					<br/>
+					<br/>
+				</div>
+				<div class="col-md-12 col-lg-4">
+					<h4><p class="text-center">Select destination country</p></h4>
+					<select class="form-control" id="cto" name="cto">
+						<?php while ($row = mysqli_fetch_array($countryResult3)): ?>
 						<option value="<?php echo $row['ISO']; ?>"><?php echo $row["Name"] ?></option>
 						<?php endwhile; ?>
 					</select>
