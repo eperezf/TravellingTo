@@ -1,91 +1,46 @@
-<?php 
+<?php
 
 session_start(); 
+//Check if country codes are empty or equal BEGIN
+if (empty($_GET) || $_GET['cfrom'] == $_GET['cto'] || $_GET['cfrom'] == "" || $_GET['cto'] == ""){
+  header("Location: /");
+  die();
+};
 
-	//Check if country codes are empty or equal BEGIN
-  if (empty($_GET)){
-    header("Location: /");
-    die();
-  };
-  if ($_GET['cfrom'] == $_GET['cto'] || $_GET['cfrom'] == "" || $_GET['cto'] == ""){
-    header("Location: /");
-    die();
-  }
-	//Check if country codes are empty or equal END
+//Check if country codes are empty or equal END
 
-  define('FromFile', TRUE);
+define('FromFile', TRUE);
 
-  include 'config.php';
+require_once('classes.php');
 
-  //Relation Query + declaration BEGIN
-  $Points = 0;
-  $relationQuery = "SELECT * FROM `Relation` WHERE `Origin` ='" . $_GET['cfrom'] ."' AND `Destination` ='" . $_GET['cto'] . "'";
-  $relationResult = mysqli_query($conn, $relationQuery);
-  while ($row = mysqli_fetch_array($relationResult)) {
-    $id_Relation = $row["idRelation"];
-    $From = $row["Origin"];
-    $To = $row["Destination"];
-    $Points = $row["Points"];
-  }
-  //Relation Query + declaration BEGIN
-   //Check if countries are valid BEGIN
-  if (empty($id_Relation)){
-    header("Location: /");
-    die();
-  }
-  //Check if countries are valid END
+$From = new Country($_GET["cfrom"]);
+$To = new Country ($_GET["cto"]);
 
-  //Relation point assignation BEGIN
-  $Points = $Points + 1;
-  $PointsQuery = "UPDATE `Relation` SET `Points` =" . $Points . " WHERE `idRelation` =" . $id_Relation;
-  if (mysqli_query($conn, $PointsQuery)){
-  }
-  else {
-  	echo "ERROR";
-  };
-  //Relation point assignation END
+$Relation = new Relation ($From->ISO, $To->ISO);
+$Relation->AddPoints();
 
-  //Country From Query + declaration BEGIN
-  $countryFromQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $_GET['cfrom'] . "'";
-  $countryFromResult = mysqli_query($conn, $countryFromQuery);
-  while($row = mysqli_fetch_array($countryFromResult)) {
-    $id_From                =   $row["idCountry"]; //DEBUG ONLY DO NOT USE
-    $ISO_From               =   $row["ISO"];
-    $Name_From              =   $row["Name"];
-    $Capital_From           =   $row["Capital"];
-    $Phone_Code_From        =   $row["Phone_Code"];
-    $Driving_Side_From      =   $row["Driving_Side"];
-    $Voltage_Primary_From   =   $row["Voltage_Primary"];
-    $Voltage_Secondary_From =   $row["Voltage_Secondary"];
-    $Plug_List_From         =   $row["Plug_List"];
-  };
-  //Country From Query + declaration END
-  
-  //Country To Query + declaration BEGIN
-  $countryToQuery = "SELECT * FROM `Country` WHERE `ISO` LIKE'" . $_GET['cto'] . "'";
-  $countryToResult = mysqli_query($conn, $countryToQuery);
-  while($row = mysqli_fetch_array($countryToResult)) {
-    $id_To                =   $row["idCountry"]; //DEBUG ONLY DO NOT USE
-    $ISO_To               =   $row["ISO"];
-    $Name_To              =   $row["Name"];
-    $Capital_To           =   $row["Capital"];
-    $Phone_Code_To        =   $row["Phone_Code"];
-    $Driving_Side_To      =   $row["Driving_Side"];
-    $Voltage_Primary_To   =   $row["Voltage_Primary"];
-    $Voltage_Secondary_To =   $row["Voltage_Secondary"];
-    $Plug_List_To         =   $row["Plug_List"];
-  };
-  //Country To Query + declaration END
+$Currency = new Currency ($From->CurrencyCode, $To->CurrencyCode, $From->CurrencyName, $To->CurrencyName);
+$Currency->GetStatus ();
+$Currency->GetBarColor ();
+$Currency->GetResponse ($From->Name, $To->Name);
 
-  include 'dataget/currency.php';
-  include 'dataget/currency_convert.php';
-  include 'dataget/voltage.php';
-  include 'dataget/driving.php';
-  include 'dataget/plugs.php'; 
+$Voltage = new Voltage ($From->VoltagePrimary, $From->VoltageSecondary, $To->VoltagePrimary, $To->VoltageSecondary);
+$Voltage->GetRange ();
+$Voltage->GetBarColor ();
+$Voltage->GetResponse ($From->Name, $To->Name);
 
-  ?>
+$Driving = new Driving ($From->DrivingSide, $To->DrivingSide);
+$Driving->GetBarColor ();
+$Driving->GetResponse ($From->Name, $To->Name);
 
-  <!DOCTYPE html>
+$Plugs = new Plugs ();
+$Plugs->GetArray ($From->PlugList, $To->PlugList);
+$Plugs->GetResponse ();
+$Plugs->GetBarColor ();
+
+
+
+?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -159,7 +114,7 @@ session_start();
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h1><p class="text-center"><small>Travelling from</small> <?php echo $Name_From ?> <small>to</small> <?php echo $Name_To ?></p></h1>
+			<h1><p class="text-center"><small>Travelling from</small> <?php echo $From->Name ?> <small>to</small> <?php echo $To->Name ?></p></h1>
 		</div>
 	</div>
 	<!--COUNTRY FROM GENERIC INFO-->
@@ -167,16 +122,16 @@ session_start();
     <div class="col-md-6 col-lg-6 col-sm-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-home"></i> Information of <strong><?php echo $Name_From ?></strong></h3>
+          <h3 class="panel-title"><i class="fa fa-home"></i> Information of <strong><?php echo $From->Name ?></strong></h3>
         </div>
         <div class="panel-body">
-          <img src="http://www.geonames.org/flags/x/<?php echo strtolower($ISO_From) ?>.gif" class="img-responsive center-block" style="width: auto; height: 8em"></br>
+          <img src="http://www.geonames.org/flags/x/<?php echo strtolower($From->ISO) ?>.gif" class="img-responsive center-block" style="width: auto; height: 8em"></br>
           <ul class="list-group">
-          	<li class="list-group-item">Country code: <?php echo $ISO_From ?></li>
-            <li class="list-group-item">Capital: <?php echo $Capital_From ?></li>
-            <li class="list-group-item">Phone code: +<?php echo $Phone_Code_From ?></li>
-            <li class="list-group-item">Currency: <?php echo $Currency_Name_From ?></li>
-            <li class="list-group-item">Main language: Unavailable</li>
+          	<li class="list-group-item">Country code: <?php echo $From->ISO ?></li>
+            <li class="list-group-item">Capital: <?php echo $From->Capital ?></li>
+            <li class="list-group-item">Phone code: +<?php echo $From->PhoneCode ?></li>
+            <li class="list-group-item">Currency: <?php echo $From->CurrencyName . " (" . $From->CurrencyOfficial . ")" ?></li>
+            <li class="list-group-item">Main language: <?php echo $From->LanguageName ?></li>
           </ul>
         </div>
       </div>
@@ -187,16 +142,16 @@ session_start();
     <div class="col-md-6 col-lg-6 col-sm-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-plane"></i> Information of <strong><?php echo $Name_To ?></strong></h3>
+          <h3 class="panel-title"><i class="fa fa-plane"></i> Information of <strong><?php echo $To->Name ?></strong></h3>
         </div>
         <div class="panel-body">
-         <img src="http://www.geonames.org/flags/x/<?php echo strtolower($ISO_To) ?>.gif" class="img-responsive center-block" style="width: auto; height: 8em"></br>
+         <img src="http://www.geonames.org/flags/x/<?php echo strtolower($To->ISO) ?>.gif" class="img-responsive center-block" style="width: auto; height: 8em"></br>
           <ul class="list-group">
-          	<li class="list-group-item">Country code: <?php echo $ISO_To ?></li>
-            <li class="list-group-item">Capital: <?php echo $Capital_To ?></li>
-            <li class="list-group-item">Phone code: +<?php echo $Phone_Code_To ?></li>
-            <li class="list-group-item">Currency: <?php echo $Currency_Name_To ?></li>
-            <li class="list-group-item">Main language: Unavailable</li>
+          	<li class="list-group-item">Country code: <?php echo $To->ISO ?></li>
+            <li class="list-group-item">Capital: <?php echo $To->Capital ?></li>
+            <li class="list-group-item">Phone code: +<?php echo $To->PhoneCode ?></li>
+            <li class="list-group-item">Currency: <?php echo $To->CurrencyName . " (" . $To->CurrencyOfficial . ")" ?></li>
+            <li class="list-group-item">Main language: <?php echo $To->LanguageName ?></li>
           </ul>
         </div>
       </div>
@@ -209,10 +164,10 @@ session_start();
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-globe"></i> Language comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+          <h3 class="panel-title"><i class="fa fa-globe"></i> Language comparison between <?php echo $From->Name ?> and <?php echo $To->Name ?></h3>
         </div>
         <div class="panel-body">
-          Coming Soon. Help us complete this information here: <a href="/contribute/view.php?data=lang&country=<?php echo $ISO_From ?>"><?php echo $Name_From ?></a> or <a href="/contribute/view.php?data=lang&country=<?php echo $ISO_To ?>"><?php echo $Name_To ?></a>
+          Coming Soon. Help us complete this information here: <a href="/contribute/view.php?data=lang&country=<?php echo $From->ISO ?>"><?php echo $From->Name ?></a> or <a href="/contribute/view.php?data=lang&country=<?php echo $To->ISO ?>"><?php echo $To->Name ?></a>
         </div>
       </div>
     </div>
@@ -222,12 +177,12 @@ session_start();
     <!--COUNTRY MONEY COMPARISON-->
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-<?php echo $Currency_Frame ?>">
+      <div class="panel panel-<?php echo $Currency->BarColor ?>">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-usd"></i> Currency comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+          <h3 class="panel-title"><i class="fa fa-usd"></i> Currency comparison between <?php echo $From->Name ?> and <?php echo $To->Name ?></h3>
         </div>
         <div class="panel-body">
-          <?php echo $Exchange_Response ?>
+          <?php echo $Currency->Response ?>
         </div>
       </div>
     </div>
@@ -237,12 +192,12 @@ session_start();
     <!--COUNTRY VOLTAGE COMPARISON-->
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-<?php echo $Voltage_Frame ?>">
+      <div class="panel panel-<?php echo $Voltage->BarColor ?>">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-bolt"></i> Voltage comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+          <h3 class="panel-title"><i class="fa fa-bolt"></i> Voltage comparison between <?php echo $From->Name ?> and <?php echo $To->Name ?></h3>
         </div>
         <div class="panel-body">
-        	<?php echo $Voltage_Response ?>
+        	<?php echo $Voltage->Response ?>
         </div>
       </div>
     </div>
@@ -252,42 +207,41 @@ session_start();
     <!--COUNTRY PLUG COMPARISON-->
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-<?php echo $Plug_Frame ?>">
+      <div class="panel panel-<?php echo $Plugs->BarColor ?>">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-plug"></i> Plug comparison between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+          <h3 class="panel-title"><i class="fa fa-plug"></i> Plug comparison between <?php echo $From->Name ?> and <?php echo $To->Name ?></h3>
         </div>
         <div class="panel-body">
-          <?php if ($Plug_Both_Response != ""): ?>
+          <?php if ($Plugs->Plug_Both_Response != ""): ?>
             <div class="row">
               <div class="col-md-12">
                 <h4>Plugs used in both countries:</h4>
               </div>
             </div>
             <div class="row">
-              <?php echo $Plug_Both_Response ?>
+              <?php echo $Plugs->Plug_Both_Response ?>
             </div>
           <?php endif; ?>
-          <?php if ($Plug_From_Response != ""): ?>
+          <?php if ($Plugs->Plug_From_Response != ""): ?>
             <div class="row">
               <div class="col-md-12">
-                <h4>Plugs used only in <?php echo $Name_From ?>:</h4>
+                <h4>Plugs used only in <?php echo $From->Name ?>:</h4>
               </div>
             </div>
             <div class="row">
               <?php echo $Plug_From_Response ?>
             </div>
           <?php endif; ?>
-          <?php if ($Plug_To_Response != ""): ?>
+          <?php if ($Plugs->Plug_To_Response != ""): ?>
             <div class="row">
               <div class="col-md-12">
-                <h4>Plugs used only in <?php echo $Name_To ?>:</h4>
+                <h4>Plugs used only in <?php echo $To->Name ?>:</h4>
               </div>
             </div>
             <div class="row">
-              <?php echo $Plug_To_Response ?>
+              <?php echo $Plugs->Plug_To_Response ?>
             </div>
           <?php endif; ?>
-
         </div>
       </div>
     </div>
@@ -297,12 +251,12 @@ session_start();
     <!--COUNTRY ROAD COMPARISON-->
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-<?php echo $Driving_Frame ?>">
+      <div class="panel panel-<?php echo $Driving->BarColor ?>">
         <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-car"></i> Driving side comparsion between <?php echo $Name_From ?> and <?php echo $Name_To ?></h3>
+          <h3 class="panel-title"><i class="fa fa-car"></i> Driving side comparsion between <?php echo $From->Name ?> and <?php echo $To->Name ?></h3>
         </div>
         <div class="panel-body">
-          <?php echo $Driving_Response ?>
+          <?php echo $Driving->Response ?>
         </div>
       </div>
     </div>
@@ -317,7 +271,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-university"></i> Embassies and consulates</h3>
         </div>
         <div class="panel-body">
-          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=embass&cfrom=<?php echo $ISO_From ?>&cto=<?php echo $ISO_To ?>">here</a>
+          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=embass&cfrom=<?php echo $From->ISO ?>&cto=<?php echo $To->ISO ?>">here</a>
         </div>
       </div>
     </div>
@@ -332,7 +286,7 @@ session_start();
           <h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> Legal papers</h3>
         </div>
         <div class="panel-body">
-          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=legal&cfrom=<?php echo $ISO_From ?>&cto=<?php echo $ISO_To ?>">here</a>
+          Coming soon. Help us complete this information <a href="/contribute/doubleview.php?data=legal&cfrom=<?php echo $From->ISO ?>&cto=<?php echo $To->ISO ?>">here</a>
         </div>
       </div>
     </div>
