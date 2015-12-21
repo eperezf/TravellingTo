@@ -991,6 +991,19 @@ class Plugs {
 	}
 }
 
+class GeneralFunctions {
+
+	function ListCountries (){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		$countryQuery ="SELECT Name, ISO FROM `Country`";
+		$countryResult = mysqli_query($conn, $countryQuery);
+		while ($row = mysqli_fetch_array($countryResult)) {
+			echo '<option value="' . $row['ISO'] . '">' . $row['Name'] . '</option>';
+		}
+	}
+
+}
+
 
 
 

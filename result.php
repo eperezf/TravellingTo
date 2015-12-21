@@ -229,7 +229,7 @@ $Plugs->GetBarColor ();
               </div>
             </div>
             <div class="row">
-              <?php echo $Plugs->Plug_From_Response ?>
+              <?php echo $Plug_From_Response ?>
             </div>
           <?php endif; ?>
           <?php if ($Plugs->Plug_To_Response != ""): ?>

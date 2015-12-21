@@ -1,18 +1,16 @@
 <?php
 	define('FromFile', TRUE);
 	include ('config.php');
+	require_once('classes.php');
+
+	$General = new GeneralFunctions ();
+
 	
 
 	//Relation Query + declaration BEGIN
   $Points = 0;
   $relationQuery = "SELECT * FROM `Relation` WHERE `Points` >= 1 ORDER BY `Points` DESC LIMIT 5";
   $relationResult = mysqli_query($conn, $relationQuery);
-  //Relation Query + declaration BEGIN
-
-  $countryQuery ="SELECT Name, ISO FROM `Country`";
-	$countryResult = mysqli_query($conn, $countryQuery);
-	$countryQueryTwo ="SELECT Name, ISO FROM `Country`";
-	$countryResultTwo = mysqli_query($conn, $countryQueryTwo);
 
 ?>
 
@@ -69,11 +67,11 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
-		    <li><a href="index.php">Home</a></li>
-		    <li><a href="about.php">About Us</a></li>
-		    <li><a href="disclaimer.php">Disclaimer</a></li>
-		    <li><a href="contribute">Contribute</a></li>
-				<li><a href="contact.php">Contact Us</a></li>
+		    <li class="active"><a href="#">Home</a></li>
+		    <li><a href="/about.php">About Us</a></li>
+		    <li><a href="/disclaimer.php">Disclaimer</a></li>
+		    <li><a href="/contribute">Contribute</a></li>
+				<li><a href="/contact.php">Contact Us</a></li>
 		  </ul>
 		  	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="navbar-form navbar-right">
 		  		<div class="form-group">
@@ -100,9 +98,7 @@
 			<div class="col-md-12 col-lg-6">
 				<h4><p class="text-center">Select your country</p></h4>
 				<select class="form-control" id="cfrom" name="cfrom">
-					<?php while ($row = mysqli_fetch_array($countryResult)): ?>
-						<option value="<?php echo $row['ISO']; ?>"><?php echo $row["Name"] ?></option>
-					<?php endwhile; ?>
+					<?php $General->ListCountries (); ?>
 				</select>
 					<br/>
 					<br/>
@@ -110,9 +106,7 @@
 				<div class="col-md-12 col-lg-6">
 					<h4><p class="text-center">Select your destination</p></h4>
 					<select class="form-control" id="cto" name="cto">
-						<?php while ($row = mysqli_fetch_array($countryResultTwo)): ?>
-							<option value="<?php echo $row['ISO']; ?>"><?php echo $row["Name"] ?></option>
-						<?php endwhile; ?>
+						<?php $General->ListCountries (); ?>
 					</select>
 					<br/>
 					<br/>
