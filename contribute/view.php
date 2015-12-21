@@ -141,7 +141,6 @@ else{
 					if ($Data == "language"):
 				 ?>
 				<tr>
-<<<<<<< HEAD
 					<td>ID</td>
 					<td>Language Name</td>
 					<td>ISO Code</td>
@@ -150,18 +149,12 @@ else{
 					<td>Bathroom</td>
 					<td>Place</td>
 					<td>No Speak</td>
-=======
-					<td>Language</td>
-					<td>Hello phrase</td>
-					<td>Goodbye phrase</td>
->>>>>>> double-editor
 					<td>Points</td>
 					<td>Official</td>
 					<td>Action</td>
 				</tr>
 				<?php while ($row= mysqli_fetch_array($dataResult)): ?>
 				<tr>
-<<<<<<< HEAD
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
@@ -173,14 +166,12 @@ else{
 					<td>DEMO</td>
 					<td>DEMO</td>
 					<td>DEMO</td>
-=======
 					<td><?php echo $row["LanguageName"] ?></td>
 					<td><?php echo $row["Points"] ?></td>
 					<td><?php echo $row["Hello"] ?></td>
 					<td><?php echo $row["Goodbye"] ?></td>
 					<td><?php if ($row["Official"] == 1){ echo "Yes";} else {echo "No";}; ?></td>
 					<td>ACTION</td>
->>>>>>> double-editor
 				</tr>
 				<?php 
 					endwhile;

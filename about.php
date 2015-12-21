@@ -25,7 +25,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
 		    <li><a href="index.php">Home</a></li>
-		    <li><a href="about.php">About Us</a></li>
+		    <li class="active"><a href="#">About</a></li>
 		    <li><a href="disclaimer.php">Disclaimer</a></li>
 		    <li><a href="contribute">Contribute</a></li>
 				<li><a href="contact.php">Contact Us</a></li>
@@ -45,13 +45,13 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-  			<h1>About Us</h1>
+  			<h1>About</h1>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			We are two engineer students working on a small project for our Programming course. We saw there were many websites with information about countries and its differences. But there wasn't any website that grouped all the information in one place and compard automatically. That's why we created TravellingTo. In this website you can see what will you need to travel to another country. For example, what types of plugs do they use, or the standard voltage. 
+			I'm an engineer students working on a small project for my Programming course. I saw there were many websites with information about countries and its differences. But there wasn't any website that grouped all the information in one place and compared automatically. That's why I've created TravellingTo. In this website you can see what will you need to travel to another country. For example, what types of plugs do they use, or the standard voltage. 
 		</div>
 	</div>
 	<div class="row">
@@ -59,34 +59,24 @@
 			<div class="page-header">
   			<h1>Our goal</h1>
 			</div>
-			Our goal is to create a <strong>free, useful website for everyone</strong> who travels from one country to another and needs essential information. <strong>We, like many people on the internet, hate ads.</strong> That's why we are running this website by <strong>donations only.</strong> We don't have money to pay the API access to the currency conversion or the servers so <strong>any donation is very useful so we can keep this website running and free of ads.</strong>
+			My goal is to create a <strong>free, useful website for everyone</strong> who travels from one country to another and needs essential information. <strong>Me, like many people on the internet, hate ads.</strong> That's why I'm running this website by <strong>donations only.</strong> I don't have money to pay the API access to the currency conversion or the servers so <strong>any donation is very useful so I can keep this website running and free of ads.</strong>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-  			<h1>Who we are</h1>
+  			<h1>Who am I</h1>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-  	<div class="col-sm-6 col-md-6 col-xs-12">
+  	<div class="col-sm-12 col-md-12 col-xs-12">
     	<div class="thumbnail">
       	<img src="http://placehold.it/600x400" alt="...">
       	<div class="caption">
         	<h3>Eduardo Pérez</h3>
         	<p>Fan of computers, videogames, electronic music and cars. Co-Founder of <a href="http://pisapapeles.net">Pisapapeles.net</a></p>
         	<p><a href="http://twitter.com/eperezf" class="btn btn-primary" role="button">Twitter</a> <a href="#" class="btn btn-default" role="button">Email</a></p>
-      	</div>
-    	</div>
-  	</div>
-  	<div class="col-sm-6 col-md-6 col-xs-12">
-    	<div class="thumbnail">
-      	<img src="http://placehold.it/600x400" alt="...">
-      	<div class="caption">
-        	<h3>Vicente Rosati</h3>
-        	<p>Fan of music in general, bass player.</p>
-        	<p><a href="#" class="btn btn-default" role="button">Email</a></p>
       	</div>
     	</div>
   	</div>
