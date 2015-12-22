@@ -1002,6 +1002,60 @@ class GeneralFunctions {
 		}
 	}
 
+	function ReturnDataType ($data){
+		if ($data == "curr"){
+			return "Currency";
+		}
+		if ($data == "lang"){
+			return "Language";
+		}
+		if ($data == "embas"){
+			return "Embassy";
+		}
+		if ($data == "legal"){
+			return "Legal papers";
+		}
+	}
+
+}
+
+class SingleView {
+	public $type;
+	public $ID;
+	public $Points;
+	public $TableTitles;
+
+	function GetType($data){
+		if ($data == "curr"){
+			$this->type = "Currency";
+		}
+		if ($data == "lang"){
+			$this->type = "Language";
+		}
+		if ($data == "embas"){
+			$this->type = "Embassy";
+		}
+		if ($data == "legal"){
+			$this->type = "Legal papers";
+		}
+	}
+
+	function SetTable (){
+		if ($this->type == "Currency"){
+			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>ISO Code</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
+		}
+	}
+
+	function GetEntryList ($country){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		if ($this->type == "Currency"){
+			$ListQuery = "SELECT * FROM CurrencyVotes as CV join Currency as C WHERE CV.idCountry = " . $country . " and C.idCurrency = CV.idCurrency";
+			$ListResult = mysqli_query ($conn, $ListQuery);
+			while ($row = mysqli_fetch_array($ListResult)){
+				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $row["Official"] . "</td></tr>";
+			}
+		}	
+	}
 }
 
 

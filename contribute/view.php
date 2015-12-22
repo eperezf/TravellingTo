@@ -5,6 +5,13 @@
 
 	$General = new GeneralFunctions ();
 
+	$Country = new Country($_GET["country"]);
+
+	$View = new SingleView ();
+	$View->GetType($_GET["data"]);
+	$View->SetTable ();
+	
+
 ?>
 
 <html>
@@ -77,5 +84,19 @@
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
+<div class="container">
+	<div class="row">
+		<legend>Viewing the <?php echo strtolower($General->ReturnDataType ($_GET["data"])) ?> data of <?php echo $Country->Name ?></legend>
+	</div>
+	<div class="row">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<?php echo $View->TableTitles ?>
+			</tr>
+			<?php $View->GetEntryList ($Country->ID); ?>
+		</table>
+	</div>
+</div>
+
 </body>
 </html>
