@@ -7,6 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -76,7 +77,9 @@
       	<div class="caption">
         	<h3>Eduardo Pérez</h3>
         	<p>Fan of computers, videogames, electronic music and cars. Co-Founder of <a href="http://pisapapeles.net">Pisapapeles.net</a></p>
-        	<p><a href="http://twitter.com/eperezf" class="btn btn-primary" role="button">Twitter</a> <a href="#" class="btn btn-default" role="button">Email</a></p>
+        	<p>
+        		<a href="http://twitter.com/eperezf" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a> 
+        		<a href="mailto:eperezf@pisapapeles.net" class="btn btn-info" role="button"><i class="fa fa-at"></i> Email</a></p>
       	</div>
     	</div>
   	</div>
