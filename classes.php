@@ -1025,6 +1025,7 @@ class SingleView {
 	public $Points;
 	public $TableTitles;
 	public $MainText;
+	public $DataList;
 
 	function GetType($data){
 		if ($data == "curr"){
@@ -1068,6 +1069,17 @@ class SingleView {
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
 		}	
+	}
+
+	function GetDataList (){
+		if ($this->type == "Currency"){
+			include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+			$DataQuery = "SELECT * FROM Currency";
+			$DataResult = mysqli_query ($conn, $DataQuery);
+			while ($row = mysqli_fetch_array($DataResult)){
+				$DataList = $DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . '(' . $row["Code"] . ')</option>';
+			}
+		}
 	}
 }
 
