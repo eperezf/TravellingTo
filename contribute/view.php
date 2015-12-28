@@ -24,6 +24,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <style type="text/css">
   	body { 
 	   	background: url('/images/background.png'); 
@@ -95,6 +96,10 @@
 			</tr>
 			<?php $View->GetEntryList ($Country->ID); ?>
 		</table>
+	</div>
+	<div class="row">
+		<p><h1><?php echo $View->MainText ?></h1></p>
+		<legend></legend>
 	</div>
 </div>
 

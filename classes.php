@@ -1024,6 +1024,7 @@ class SingleView {
 	public $ID;
 	public $Points;
 	public $TableTitles;
+	public $MainText;
 
 	function GetType($data){
 		if ($data == "curr"){
@@ -1052,7 +1053,19 @@ class SingleView {
 			$ListQuery = "SELECT * FROM CurrencyVotes as CV join Currency as C WHERE CV.idCountry = " . $country . " and C.idCurrency = CV.idCurrency";
 			$ListResult = mysqli_query ($conn, $ListQuery);
 			while ($row = mysqli_fetch_array($ListResult)){
-				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $row["Official"] . "</td></tr>";
+				if ($row["Official"] == "1"){
+					$Official = "YES";
+				}
+				else {
+					$Official = "NO";
+				};
+				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><button type="button" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="button" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="button" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></td></tr>';
+			}
+			if (empty($row)){
+				$this->MainText = "There is no data in the list. Be the first and add one below!";
+			}
+			else {
+				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
 		}	
 	}
