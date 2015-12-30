@@ -10,6 +10,7 @@
 	$View = new SingleView ();
 	$View->GetType($_GET["data"]);
 	$View->SetTable ();
+	$View->GetDataList ();
 	
 
 ?>
@@ -104,15 +105,20 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-4 col-md-6 col-sm-12">
-			<form>
+			<form action="do.php" method="post">
+				<input type="hidden" name="Action" value="submitdata">
+				<input type="hidden" name="idCountry" value="<?php echo $Country->ID ?>">
+				<input type="hidden" name="DataType" value="<?php echo $View->Type ?>">
 	  		<div class="form-group">
 	  			<label for="data">Select the correct <?php echo $General->ReturnDataType($_GET["data"]) ?> for <?php echo $Country->Name ?></label>
 	  			<select class="form-control" id="data" name="data">
-	  				<option>DATA!</option>
-	  				<option>DATA!</option>
-	  				<option>DATA!</option>
+	  				<?php echo $View->DataList ?>
 	  			</select>
 	  		</div>
+	  		<div class="form-group">
+	  			<div class="g-recaptcha" data-sitekey="6Lek8w0TAAAAAOSBqOkBWz73ttyF1nuArJDcLM93"></div>
+	  		</div>
+	  		<button type="submit" class="btn btn-default">Submit</button>
 	  	</form>
 	  </div>
 	</div>

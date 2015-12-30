@@ -1020,7 +1020,7 @@ class GeneralFunctions {
 }
 
 class SingleView {
-	public $type;
+	public $Type;
 	public $ID;
 	public $Points;
 	public $TableTitles;
@@ -1029,28 +1029,28 @@ class SingleView {
 
 	function GetType($data){
 		if ($data == "curr"){
-			$this->type = "Currency";
+			$this->Type = "Currency";
 		}
 		if ($data == "lang"){
-			$this->type = "Language";
+			$this->Type = "Language";
 		}
 		if ($data == "embas"){
-			$this->type = "Embassy";
+			$this->Type = "Embassy";
 		}
 		if ($data == "legal"){
-			$this->type = "Legal papers";
+			$this->Type = "Legal papers";
 		}
 	}
 
 	function SetTable (){
-		if ($this->type == "Currency"){
+		if ($this->Type == "Currency"){
 			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>ISO Code</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
 		}
 	}
 
 	function GetEntryList ($country){
 		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-		if ($this->type == "Currency"){
+		if ($this->Type == "Currency"){
 			$ListQuery = "SELECT * FROM CurrencyVotes as CV join Currency as C WHERE CV.idCountry = " . $country . " and C.idCurrency = CV.idCurrency";
 			$ListResult = mysqli_query ($conn, $ListQuery);
 			while ($row = mysqli_fetch_array($ListResult)){
@@ -1060,28 +1060,67 @@ class SingleView {
 				else {
 					$Official = "NO";
 				};
-				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><button type="button" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="button" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="button" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></td></tr>';
-			}
-			if (empty($row)){
-				$this->MainText = "There is no data in the list. Be the first and add one below!";
-			}
-			else {
+				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idCurrencyVotes"] . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
+			}
+			if (empty($this->MainText)){
+				$this->MainText = "There is no data in the list. Be the first and add one below!";
 			}
 		}	
 	}
 
 	function GetDataList (){
-		if ($this->type == "Currency"){
+		if ($this->Type == "Currency"){
 			include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-			$DataQuery = "SELECT * FROM Currency";
+			$DataQuery = "SELECT * FROM Currency ORDER BY Name ASC";
 			$DataResult = mysqli_query ($conn, $DataQuery);
 			while ($row = mysqli_fetch_array($DataResult)){
-				$DataList = $DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . '(' . $row["Code"] . ')</option>';
+				$this->DataList = $this->DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . ' (' . $row["Code"] . ')</option>';
 			}
 		}
 	}
 }
+
+class Process {
+	public $URL = "https://www.google.com/recaptcha/api/siteverify";
+	public $Secret = "6Lek8w0TAAAAAPCMz2A8JgBSz9DgeuE67AlXeqoS";
+	public $CaptchaResult;
+
+	public function Upvote (){
+
+	}
+	public function Downvote (){
+
+	}
+	public function Report () {
+
+	}
+	public function AddSimple ($Response){
+
+		//Check if the captcha is done:
+		$RESPONSE = $_POST["g-recaptcha-response"];
+		$DATA = array('secret' => $this->Secret, 'response' => $Response);
+		$ch = curl_init();
+		//Set cURL data:
+		curl_setopt($ch, CURLOPT_URL,$this->URL);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$DATA);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		//Get reCAPTCHA response:
+		$response = curl_exec ($ch);
+		curl_close ($ch);
+		$responseJSON = json_decode($response);
+		if ($responseJSON->success == 1){
+			$this->CaptchaResult = "success";
+		}
+		else {
+			$this->CaptchaResult = "error";
+		};
+
+
+	}
+}
+
 
 
 
