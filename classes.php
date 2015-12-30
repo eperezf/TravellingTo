@@ -1085,20 +1085,24 @@ class Process {
 	public $URL = "https://www.google.com/recaptcha/api/siteverify";
 	public $Secret = "6Lek8w0TAAAAAPCMz2A8JgBSz9DgeuE67AlXeqoS";
 	public $CaptchaResult;
+	public $Duplicate;
+	public $DataType;
 
-	public function Upvote (){
-
-	}
-	public function Downvote (){
-
-	}
-	public function Report () {
+	public function Upvote ($EntryID){
 
 	}
-	public function AddSimple ($Response){
+	public function Downvote ($EntryID){
 
-		//Check if the captcha is done:
-		$RESPONSE = $_POST["g-recaptcha-response"];
+	}
+	public function Report ($EntryID){
+
+	}
+	public function AddSimple ($Response, $DataType, $EntryID, $idCountry){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		$this->DataType = $DataType;
+		
+
+		//Check if the captcha is done:	
 		$DATA = array('secret' => $this->Secret, 'response' => $Response);
 		$ch = curl_init();
 		//Set cURL data:
@@ -1117,12 +1121,43 @@ class Process {
 			$this->CaptchaResult = "error";
 		};
 
-
+		if ($DataType == "Currency"){
+			$dataQuery="SELECT CurrencyVotes.idCurrencyVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Currency.idCurrency as idCurrency, Currency.Name as nameCurrency, Currency.Code as isoCurrency, Points, Official FROM `CurrencyVotes` JOIN `Country` JOIN `Currency` WHERE CurrencyVotes.idCurrency = Currency.idCurrency AND CurrencyVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
+			$dataResult = mysqli_query($conn, $dataQuery);
+			while ($row = mysqli_fetch_array($dataResult)){
+				if ($row["idCurrency"] == $EntryID){
+					$this->Duplicate = "TRUE";
+				}
+				else {
+					$this->Duplicate = "FALSE";
+				};
+			};
+			if ($this->CaptchaResult == "success" && $this->Duplicate == "FALSE"){
+				$insertQuery = "INSERT INTO `CurrencyVotes` (idCountry, idCurrency, Points, Official) VALUES (" . $idCountry . ", " . $EntryID .  ", 0, 0)";
+				mysqli_query($conn, $insertQuery);
+			}
+			else {
+			};
+		}
+		elseif ($DataType == "Language"){
+			$dataQuery="SELECT LanguageVotes.idLanguageVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Language.idLanguage as idLanguage, Language.Name as nameLanguage, Language.Code as isoLanguage, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
+			$dataResult = mysqli_query($conn, $dataQuery);
+			while ($row = mysqli_fetch_array($dataResult)){
+				if ($row["idLanguage"] == $EntryID){
+					$this->Duplicate = "TRUE";
+				}
+				else {
+					$this->Duplicate = "FALSE";
+				};
+			};
+			if ($this->CaptchaResult == "success" && $this->Duplicate == "FALSE"){
+				$insertQuery = "INSERT INTO `LanguageVotes` (idCountry, idLanguage, Points, Official) VALUES (" . $idCountry . ", " . $EntryID .  ", 0, 0)";
+				mysqli_query($conn, $insertQuery);
+			}
+			else {
+			};
+		}
 	}
 }
-
-
-
-
 
 ?>

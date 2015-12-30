@@ -92,7 +92,7 @@
 		<legend>Viewing the <?php echo strtolower($General->ReturnDataType ($_GET["data"])) ?> data of <?php echo $Country->Name ?></legend>
 	</div>
 	<div class="row">
-		<table class="table table-bordered table-striped">
+		<table class="table table-bordered table-hover">
 			<tr>
 				<?php echo $View->TableTitles ?>
 			</tr>
@@ -110,8 +110,8 @@
 				<input type="hidden" name="idCountry" value="<?php echo $Country->ID ?>">
 				<input type="hidden" name="DataType" value="<?php echo $View->Type ?>">
 	  		<div class="form-group">
-	  			<label for="data">Select the correct <?php echo $General->ReturnDataType($_GET["data"]) ?> for <?php echo $Country->Name ?></label>
-	  			<select class="form-control" id="data" name="data">
+	  			<label for="EntryID">Select the correct <?php echo $General->ReturnDataType($_GET["data"]) ?> for <?php echo $Country->Name ?></label>
+	  			<select class="form-control" id="EntryID" name="EntryID">
 	  				<?php echo $View->DataList ?>
 	  			</select>
 	  		</div>
