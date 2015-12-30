@@ -1078,6 +1078,14 @@ class SingleView {
 				$this->DataList = $this->DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . ' (' . $row["Code"] . ')</option>';
 			}
 		}
+		if ($this->Type == "Language"){
+			include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+			$DataQuery = "SELECT * FROM Language ORDER BY Name ASC";
+			$DataResult = mysqli_query ($conn, $DataQuery);
+			while ($row = mysqli_fetch_array($DataResult)){
+				$this->DataList = $this->DataList . '<option value="' . $row["idLanguage"] . '">' . $row["Name"] . '</option>';
+			}
+		}
 	}
 }
 
@@ -1085,7 +1093,7 @@ class Process {
 	public $URL = "https://www.google.com/recaptcha/api/siteverify";
 	public $Secret = "6Lek8w0TAAAAAPCMz2A8JgBSz9DgeuE67AlXeqoS";
 	public $CaptchaResult;
-	public $Duplicate;
+	public $Duplicate = "FALSE";
 	public $DataType;
 
 	public function Upvote ($EntryID){
@@ -1139,6 +1147,8 @@ class Process {
 			else {
 			};
 		}
+
+
 		elseif ($DataType == "Language"){
 			$dataQuery="SELECT LanguageVotes.idLanguageVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Language.idLanguage as idLanguage, Language.Name as nameLanguage, Language.Code as isoLanguage, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
 			$dataResult = mysqli_query($conn, $dataQuery);
