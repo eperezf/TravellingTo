@@ -52,7 +52,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			I'm an engineer students working on a small project for my Programming course. I saw there were many websites with information about countries and its differences. But there wasn't any website that grouped all the information in one place and compared automatically. That's why I've created TravellingTo. In this website you can see what will you need to travel to another country. For example, what types of plugs do they use, or the standard voltage. 
+			I'm an engineer student working on a small project for my Programming course. I saw there were many websites with information about countries and its differences. But there wasn't any website that grouped all the information in one place and compared automatically. That's why I've created TravellingTo. In this website you can see what will you need to travel to another country. For example, what types of plugs do they use, or the standard voltage. 
 		</div>
 	</div>
 	<div class="row">
