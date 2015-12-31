@@ -1046,10 +1046,16 @@ class SingleView {
 		if ($this->Type == "Currency"){
 			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>ISO Code</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
 		}
+
+		if ($this->Type == "Language"){
+			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
+		}
 	}
 
 	function GetEntryList ($country){
 		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+
+		//CURRENCY
 		if ($this->Type == "Currency"){
 			$ListQuery = "SELECT * FROM CurrencyVotes as CV join Currency as C WHERE CV.idCountry = " . $country . " and C.idCurrency = CV.idCurrency";
 			$ListResult = mysqli_query ($conn, $ListQuery);
@@ -1061,6 +1067,25 @@ class SingleView {
 					$Official = "NO";
 				};
 				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idCurrencyVotes"] . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
+				$this->MainText = "Is the information above incorrect? Add the correct below!";
+			}
+			if (empty($this->MainText)){
+				$this->MainText = "There is no data in the list. Be the first and add one below!";
+			}
+		}	
+
+		//LANGUAGE
+		if ($this->Type == "Language"){
+			$ListQuery = "SELECT * FROM LanguageVotes as CV join Language as C WHERE CV.idCountry = " . $country . " and C.idLanguage = CV.idLanguage";
+			$ListResult = mysqli_query ($conn, $ListQuery);
+			while ($row = mysqli_fetch_array($ListResult)){
+				if ($row["Official"] == "1"){
+					$Official = "YES";
+				}
+				else {
+					$Official = "NO";
+				};
+				echo "<tr><td>" . $row["idLanguageVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idLanguageVotes"] . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
 			if (empty($this->MainText)){

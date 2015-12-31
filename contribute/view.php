@@ -1,5 +1,8 @@
 <?php
+	session_start();
+
 	define('FromFile', TRUE);
+	
 	include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/classes.php');
 
