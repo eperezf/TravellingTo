@@ -1,5 +1,8 @@
 <?php
+	session_start();
+
 	define('FromFile', TRUE);
+	
 	include($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/classes.php');
 
@@ -10,6 +13,7 @@
 	$View = new SingleView ();
 	$View->GetType($_GET["data"]);
 	$View->SetTable ();
+	$View->GetDataList ();
 	
 
 ?>
@@ -72,7 +76,7 @@
 		    <li><a href="/index.php">Home</a></li>
 		    <li><a href="/about.php">About Us</a></li>
 		    <li><a href="/disclaimer.php">Disclaimer</a></li>
-		    <li class="active"><a href="#">Contribute</a></li>
+		    <li><a href="/contribute">Contribute</a></li>
 				<li><a href="/contact.php">Contact Us</a></li>
 		  </ul>
 		  	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="navbar-form navbar-right">
@@ -91,7 +95,7 @@
 		<legend>Viewing the <?php echo strtolower($General->ReturnDataType ($_GET["data"])) ?> data of <?php echo $Country->Name ?></legend>
 	</div>
 	<div class="row">
-		<table class="table table-bordered table-striped">
+		<table class="table table-bordered table-hover">
 			<tr>
 				<?php echo $View->TableTitles ?>
 			</tr>
@@ -104,15 +108,20 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-4 col-md-6 col-sm-12">
-			<form>
+			<form action="do.php" method="post">
+				<input type="hidden" name="Action" value="submitdata">
+				<input type="hidden" name="idCountry" value="<?php echo $Country->ID ?>">
+				<input type="hidden" name="DataType" value="<?php echo $View->Type ?>">
 	  		<div class="form-group">
-	  			<label for="data">Select the correct <?php echo $General->ReturnDataType($_GET["data"]) ?> for <?php echo $Country->Name ?></label>
-	  			<select class="form-control" id="data" name="data">
-	  				<option>DATA!</option>
-	  				<option>DATA!</option>
-	  				<option>DATA!</option>
+	  			<label for="EntryID">Select the correct <?php echo $General->ReturnDataType($_GET["data"]) ?> for <?php echo $Country->Name ?></label>
+	  			<select class="form-control" id="EntryID" name="EntryID">
+	  				<?php echo $View->DataList ?>
 	  			</select>
 	  		</div>
+	  		<div class="form-group">
+	  			<div class="g-recaptcha" data-sitekey="6Lek8w0TAAAAAOSBqOkBWz73ttyF1nuArJDcLM93"></div>
+	  		</div>
+	  		<button type="submit" class="btn btn-default">Submit</button>
 	  	</form>
 	  </div>
 	</div>

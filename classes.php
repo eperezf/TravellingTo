@@ -1020,7 +1020,7 @@ class GeneralFunctions {
 }
 
 class SingleView {
-	public $type;
+	public $Type;
 	public $ID;
 	public $Points;
 	public $TableTitles;
@@ -1029,28 +1029,34 @@ class SingleView {
 
 	function GetType($data){
 		if ($data == "curr"){
-			$this->type = "Currency";
+			$this->Type = "Currency";
 		}
 		if ($data == "lang"){
-			$this->type = "Language";
+			$this->Type = "Language";
 		}
 		if ($data == "embas"){
-			$this->type = "Embassy";
+			$this->Type = "Embassy";
 		}
 		if ($data == "legal"){
-			$this->type = "Legal papers";
+			$this->Type = "Legal papers";
 		}
 	}
 
 	function SetTable (){
-		if ($this->type == "Currency"){
+		if ($this->Type == "Currency"){
 			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>ISO Code</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
+		}
+
+		if ($this->Type == "Language"){
+			$this->TableTitles = "<td><h4>ID</h4></td><td><h4>Name</h4></td><td><h4>Votes</h4></td><td><h4>Official</h4></td><td><h4>Action</h4></td>";
 		}
 	}
 
 	function GetEntryList ($country){
 		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-		if ($this->type == "Currency"){
+
+		//CURRENCY
+		if ($this->Type == "Currency"){
 			$ListQuery = "SELECT * FROM CurrencyVotes as CV join Currency as C WHERE CV.idCountry = " . $country . " and C.idCurrency = CV.idCurrency";
 			$ListResult = mysqli_query ($conn, $ListQuery);
 			while ($row = mysqli_fetch_array($ListResult)){
@@ -1060,30 +1066,204 @@ class SingleView {
 				else {
 					$Official = "NO";
 				};
-				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><button type="button" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="button" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="button" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></td></tr>';
+				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idCurrencyVotes"] . '"><input type="hidden" name="DataType" value="' . $this->Type . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
+				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
-			if (empty($row)){
+			if (empty($this->MainText)){
 				$this->MainText = "There is no data in the list. Be the first and add one below!";
 			}
-			else {
+		}	
+
+		//LANGUAGE
+		if ($this->Type == "Language"){
+			$ListQuery = "SELECT * FROM LanguageVotes as CV join Language as C WHERE CV.idCountry = " . $country . " and C.idLanguage = CV.idLanguage";
+			$ListResult = mysqli_query ($conn, $ListQuery);
+			while ($row = mysqli_fetch_array($ListResult)){
+				if ($row["Official"] == "1"){
+					$Official = "YES";
+				}
+				else {
+					$Official = "NO";
+				};
+				echo "<tr><td>" . $row["idLanguageVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idLanguageVotes"] . '"><input type="hidden" name="DataType" value="' . $this->Type . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
+			}
+			if (empty($this->MainText)){
+				$this->MainText = "There is no data in the list. Be the first and add one below!";
 			}
 		}	
 	}
 
 	function GetDataList (){
-		if ($this->type == "Currency"){
+		if ($this->Type == "Currency"){
 			include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-			$DataQuery = "SELECT * FROM Currency";
+			$DataQuery = "SELECT * FROM Currency ORDER BY Name ASC";
 			$DataResult = mysqli_query ($conn, $DataQuery);
 			while ($row = mysqli_fetch_array($DataResult)){
-				$DataList = $DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . '(' . $row["Code"] . ')</option>';
+				$this->DataList = $this->DataList . '<option value="' . $row["idCurrency"] . '">' . $row["Name"] . ' (' . $row["Code"] . ')</option>';
+			}
+		}
+		if ($this->Type == "Language"){
+			include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+			$DataQuery = "SELECT * FROM Language ORDER BY Name ASC";
+			$DataResult = mysqli_query ($conn, $DataQuery);
+			while ($row = mysqli_fetch_array($DataResult)){
+				$this->DataList = $this->DataList . '<option value="' . $row["idLanguage"] . '">' . $row["Name"] . '</option>';
 			}
 		}
 	}
 }
 
+class Process {
+	public $URL = "https://www.google.com/recaptcha/api/siteverify";
+	public $Secret = "6Lek8w0TAAAAAPCMz2A8JgBSz9DgeuE67AlXeqoS";
+	public $CaptchaResult;
+	public $Duplicate = "FALSE";
+	public $DataType;
+	public $Result;
+	public $Points;
+
+	public function Upvote ($DataType, $EntryID){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		if ($DataType == "Currency"){
+			$GetQuery = "SELECT * FROM `CurrencyVotes` WHERE idCurrencyVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points + 1;
+			$DownQuery = "UPDATE `CurrencyVotes` SET Points= " . $this->Points . " WHERE idCurrencyVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+		if ($DataType == "Language"){
+			$GetQuery = "SELECT * FROM `LanguageVotes` WHERE idLanguageVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points + 1;
+			$DownQuery = "UPDATE `LanguageVotes` SET Points= " . $this->Points . " WHERE idLanguageVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+	}
+
+	public function Downvote ($DataType, $EntryID){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		if ($DataType == "Currency"){
+			$GetQuery = "SELECT * FROM `CurrencyVotes` WHERE idCurrencyVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points - 1;
+			$DownQuery = "UPDATE `CurrencyVotes` SET Points= " . $this->Points . " WHERE idCurrencyVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+		if ($DataType == "Language"){
+			$GetQuery = "SELECT * FROM `LanguageVotes` WHERE idLanguageVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points - 1;
+			$DownQuery = "UPDATE `LanguageVotes` SET Points= " . $this->Points . " WHERE idLanguageVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+	}
+
+	public function Report ($EntryID){
+
+	}
+
+	public function AddSimple ($Response, $DataType, $EntryID, $idCountry){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		$this->DataType = $DataType;
+		
+
+		//Check if the captcha is done:	
+		$DATA = array('secret' => $this->Secret, 'response' => $Response);
+		$ch = curl_init();
+		//Set cURL data:
+		curl_setopt($ch, CURLOPT_URL,$this->URL);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$DATA);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		//Get reCAPTCHA response:
+		$response = curl_exec ($ch);
+		curl_close ($ch);
+		$responseJSON = json_decode($response);
+		if ($responseJSON->success == 1){
+			$this->CaptchaResult = "success";
+		}
+		else {
+			$this->CaptchaResult = "error";
+		};
+
+		if ($DataType == "Currency"){
+			$dataQuery="SELECT CurrencyVotes.idCurrencyVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Currency.idCurrency as idCurrency, Currency.Name as nameCurrency, Currency.Code as isoCurrency, Points, Official FROM `CurrencyVotes` JOIN `Country` JOIN `Currency` WHERE CurrencyVotes.idCurrency = Currency.idCurrency AND CurrencyVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
+			$dataResult = mysqli_query($conn, $dataQuery);
+			while ($row = mysqli_fetch_array($dataResult)){
+				if ($row["idCurrency"] == $EntryID){
+					$this->Duplicate = "TRUE";
+				}
+				else {
+					$this->Duplicate = "FALSE";
+				};
+			};
+			if ($this->CaptchaResult == "success" && $this->Duplicate == "FALSE"){
+				$insertQuery = "INSERT INTO `CurrencyVotes` (idCountry, idCurrency, Points, Official) VALUES (" . $idCountry . ", " . $EntryID .  ", 0, 0)";
+				mysqli_query($conn, $insertQuery);
+			}
+			else {
+			};
+		}
 
 
+		elseif ($DataType == "Language"){
+			$dataQuery="SELECT LanguageVotes.idLanguageVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Language.idLanguage as idLanguage, Language.Name as nameLanguage, Language.Code as isoLanguage, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
+			$dataResult = mysqli_query($conn, $dataQuery);
+			while ($row = mysqli_fetch_array($dataResult)){
+				if ($row["idLanguage"] == $EntryID){
+					$this->Duplicate = "TRUE";
+				}
+				else {
+					$this->Duplicate = "FALSE";
+				};
+			};
+			if ($this->CaptchaResult == "success" && $this->Duplicate == "FALSE"){
+				$insertQuery = "INSERT INTO `LanguageVotes` (idCountry, idLanguage, Points, Official) VALUES (" . $idCountry . ", " . $EntryID .  ", 0, 0)";
+				mysqli_query($conn, $insertQuery);
+			}
+			else {
+			};
+		}
+
+		if ($this->CaptchaResult == "error" && $this->Duplicate == "TRUE"){
+			$this->Result = "The captcha was not entered or is incorrect. Also, the data entered is duplicate.";
+		}
+		elseif ($this->CaptchaResult == "error"){
+			$this->Result = "The captcha was not entered or is incorrect.";
+		}
+		elseif ($this->Duplicate == "TRUE"){
+			$this->Result = "The data entered is duplicate.";
+		}
+	}
+}
 
 ?>
