@@ -1066,7 +1066,7 @@ class SingleView {
 				else {
 					$Official = "NO";
 				};
-				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idCurrencyVotes"] . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
+				echo "<tr><td>" . $row["idCurrencyVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Code"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idCurrencyVotes"] . '"><input type="hidden" name="DataType" value="' . $this->Type . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
 			if (empty($this->MainText)){
@@ -1085,7 +1085,7 @@ class SingleView {
 				else {
 					$Official = "NO";
 				};
-				echo "<tr><td>" . $row["idLanguageVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idLanguageVotes"] . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
+				echo "<tr><td>" . $row["idLanguageVotes"] . "</td><td>" . $row["Name"] . "</td><td>" . $row["Points"] . "</td><td>" . $Official . '</td><td><form action="do.php" method="post"><input type="hidden" name="EntryID" value="' . $row["idLanguageVotes"] . '"><input type="hidden" name="DataType" value="' . $this->Type . '"><button type="submit" name="Action" value="upvote" class="btn btn-default"><i class="fa fa-thumbs-up"></i></button><button type="submit" name="Action" value="downvote" class="btn btn-default"><i class="fa fa-thumbs-down"></i></button><button type="submit" name="Action" value="report" class="btn btn-default"><i class="fa fa-exclamation-circle"></i></button></form></td></tr>';
 				$this->MainText = "Is the information above incorrect? Add the correct below!";
 			}
 			if (empty($this->MainText)){
@@ -1120,16 +1120,77 @@ class Process {
 	public $CaptchaResult;
 	public $Duplicate = "FALSE";
 	public $DataType;
+	public $Result;
+	public $Points;
 
-	public function Upvote ($EntryID){
+	public function Upvote ($DataType, $EntryID){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		if ($DataType == "Currency"){
+			$GetQuery = "SELECT * FROM `CurrencyVotes` WHERE idCurrencyVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points + 1;
+			$DownQuery = "UPDATE `CurrencyVotes` SET Points= " . $this->Points . " WHERE idCurrencyVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+		if ($DataType == "Language"){
+			$GetQuery = "SELECT * FROM `LanguageVotes` WHERE idLanguageVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points + 1;
+			$DownQuery = "UPDATE `LanguageVotes` SET Points= " . $this->Points . " WHERE idLanguageVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
 
 	}
-	public function Downvote ($EntryID){
+
+	public function Downvote ($DataType, $EntryID){
+		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+		if ($DataType == "Currency"){
+			$GetQuery = "SELECT * FROM `CurrencyVotes` WHERE idCurrencyVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points - 1;
+			$DownQuery = "UPDATE `CurrencyVotes` SET Points= " . $this->Points . " WHERE idCurrencyVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
+
+		if ($DataType == "Language"){
+			$GetQuery = "SELECT * FROM `LanguageVotes` WHERE idLanguageVotes = " . $EntryID;
+			$GetResult = mysqli_query ($conn, $GetQuery);
+			while ($row = mysqli_fetch_array($GetResult)){
+				$this->Points = $row["Points"];
+			}
+			$this->Points = $this->Points - 1;
+			$DownQuery = "UPDATE `LanguageVotes` SET Points= " . $this->Points . " WHERE idLanguageVotes =" . $EntryID;
+			$DownResult = mysqli_query ($conn, $DownQuery);
+			if (!$DownResult) {
+    		die('Invalid query: ' . mysql_error());
+			}
+		}
 
 	}
+
 	public function Report ($EntryID){
 
 	}
+
 	public function AddSimple ($Response, $DataType, $EntryID, $idCountry){
 		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 		$this->DataType = $DataType;
@@ -1191,6 +1252,16 @@ class Process {
 			}
 			else {
 			};
+		}
+
+		if ($this->CaptchaResult == "error" && $this->Duplicate == "TRUE"){
+			$this->Result = "The captcha was not entered or is incorrect. Also, the data entered is duplicate.";
+		}
+		elseif ($this->CaptchaResult == "error"){
+			$this->Result = "The captcha was not entered or is incorrect.";
+		}
+		elseif ($this->Duplicate == "TRUE"){
+			$this->Result = "The data entered is duplicate.";
 		}
 	}
 }

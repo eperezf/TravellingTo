@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-
 <?php 
 
 session_start();
@@ -17,17 +15,23 @@ $Action = $_POST["Action"];
 if ($Action == "upvote"){
 	echo "So, we are upvoting stuff... </br>";
 	$EntryID = $_POST["EntryID"];
-	$Do->Upvote($EntryID);
+	$DataType = $_POST["DataType"];
+	$Do->Upvote($DataType, $EntryID);
 }
 elseif ($Action == "downvote"){
 	echo "So, we are downvoting stuff... </br>";
 	$EntryID = $_POST["EntryID"];
-	$Do->Downvote($EntryID);
+	echo "The Entry ID is: " . $EntryID . "</br>";
+	$DataType = $_POST["DataType"];
+	echo "The Data Type is: " . $DataType . "</br>";
+	$Do->Downvote($DataType, $EntryID);
+	echo "The points are now " . $Do->Points . "</br>";
 
 }
 elseif ($Action == "report"){
 	echo "So, we are reporting stuff... </br>";
 	$EntryID = $_POST["EntryID"];
+	$DataType = $_POST["DataType"];
 	$Do->Report($EntryID);
 
 }
@@ -44,9 +48,12 @@ elseif ($Action == "submitdata"){
 	echo "The captcha resolution is: " . $Do->CaptchaResult . "</br>";
 	echo "The ID of the selected entry is: " . $EntryID . "</br>";
 	echo "Let's see if it's duplicated: " . $Do->Duplicate . "</br>";
+	echo "The result is: " . $Do->Result . "</br>";
 
 
 
 }
 
 ?>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
