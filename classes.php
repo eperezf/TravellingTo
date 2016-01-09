@@ -1236,7 +1236,7 @@ class Process {
 
 
 		elseif ($DataType == "Language"){
-			$dataQuery="SELECT LanguageVotes.idLanguageVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Language.idLanguage as idLanguage, Language.Name as nameLanguage, Language.Code as isoLanguage, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
+			$dataQuery="SELECT LanguageVotes.idLanguageVotes as idEntry, Country.idCountry as idCountry, Country.name as nameCountry, Language.idLanguage as idLanguage, Language.Name as nameLanguage, Language.ISO as isoLanguage, Points, Official FROM `LanguageVotes` JOIN `Country` JOIN `Language` WHERE LanguageVotes.idLanguage = Language.idLanguage AND LanguageVotes.idCountry = Country.idCountry AND Country.idCountry = '" . $idCountry . "'";
 			$dataResult = mysqli_query($conn, $dataQuery);
 			while ($row = mysqli_fetch_array($dataResult)){
 				if ($row["idLanguage"] == $EntryID){
