@@ -91,6 +91,15 @@
 	</div><!-- /.container-fluid -->
 </nav>
 <div class="container">
+	<?php if ($_SESSION["noticetype"] != "none"): ?>
+		<div class="alert alert-<?php echo $_SESSION['noticetype'] ?> alert-dismissible" role="alert">
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		<?php echo $_SESSION["notice"];
+  		$_SESSION["notice"] = "";
+  		$_SESSION["noticetype"] = "none";
+  		?>
+		</div>
+	<?php endif; ?>
 	<div class="row">
 		<legend>Viewing the <?php echo strtolower($General->ReturnDataType ($_GET["data"])) ?> data of <?php echo $Country->Name ?></legend>
 	</div>

@@ -13,19 +13,16 @@ $Action = $_POST["Action"];
 
 
 if ($Action == "upvote"){
-	echo "So, we are upvoting stuff... </br>";
 	$EntryID = $_POST["EntryID"];
 	$DataType = $_POST["DataType"];
 	$Do->Upvote($DataType, $EntryID);
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 elseif ($Action == "downvote"){
-	echo "So, we are downvoting stuff... </br>";
 	$EntryID = $_POST["EntryID"];
-	echo "The Entry ID is: " . $EntryID . "</br>";
 	$DataType = $_POST["DataType"];
-	echo "The Data Type is: " . $DataType . "</br>";
 	$Do->Downvote($DataType, $EntryID);
-	echo "The points are now " . $Do->Points . "</br>";
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 }
 elseif ($Action == "report"){
@@ -41,16 +38,9 @@ elseif ($Action == "submitdata"){
 	$EntryID = $_POST["EntryID"];
 	$idCountry = $_POST["idCountry"];
 
-	echo "So, we are submitting stuff... </br>";
 	$Do->AddSimple ($CaptchaResponse, $DataType, $EntryID, $idCountry);
-	echo "The results are in! </br>";
-	echo "The data type: " . $Do->DataType . "</br>"; 
-	echo "The captcha resolution is: " . $Do->CaptchaResult . "</br>";
-	echo "The ID of the selected entry is: " . $EntryID . "</br>";
-	echo "Let's see if it's duplicated: " . $Do->Duplicate . "</br>";
-	echo "The result is: " . $Do->Result . "</br>";
-
-
+	$Do->SetNotice ();
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 }
 

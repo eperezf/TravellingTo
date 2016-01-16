@@ -1122,6 +1122,7 @@ class Process {
 	public $DataType;
 	public $Result;
 	public $Points;
+	public $PostWarning;
 
 	public function Upvote ($DataType, $EntryID){
 		include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
@@ -1255,13 +1256,35 @@ class Process {
 		}
 
 		if ($this->CaptchaResult == "error" && $this->Duplicate == "TRUE"){
-			$this->Result = "The captcha was not entered or is incorrect. Also, the data entered is duplicate.";
+			$this->Result = "CAPDUP";
 		}
 		elseif ($this->CaptchaResult == "error"){
-			$this->Result = "The captcha was not entered or is incorrect.";
+			$this->Result = "CAP";
 		}
 		elseif ($this->Duplicate == "TRUE"){
-			$this->Result = "The data entered is duplicate.";
+			$this->Result = "DUP";
+		}
+		else{
+			$this->Result = "OK";
+		}
+	}
+
+	public function SetNotice (){
+		if ($this->Result == "OK"){
+			$_SESSION["notice"] = "Your entry was addded correctly.";
+			$_SESSION["noticetype"] = "success";
+		}
+		elseif ($this->Result == "CAP"){
+			$_SESSION["notice"] = "You didn't enter the captcha or it was wrong.";
+			$_SESSION["noticetype"] = "warning";
+		}
+		elseif ($this->Result == "DUP"){
+			$_SESSION["notice"] = "Your entry is already inserted.";
+			$_SESSION["noticetype"] = "warning";
+		}
+		elseif ($this->Result == "CAPDUP"){
+			$_SESSION["notice"] = "Your entry is already inserted and you didn't enter the captcha or it was wrong.";
+			$_SESSION["noticetype"] = "warning";
 		}
 	}
 }

@@ -17,6 +17,7 @@
 <html>
 <head>
 	<title>TravellingTo | Travel planning done simple</title>
+	<meta name="detectify-verification" content="0ee86c98156835e6fc4a558d78f896ad" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
